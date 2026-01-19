@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noizzed | Territory & Laboratory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --accent: #00ff41; /* Verde Técnico */
+            --border: 2px solid #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            line-height: 1.2;
+            overflow-x: hidden;
+        }
+
+        /* Efeito de scanline (Monitor CRT) */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 1000;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 2rem;
+            border-bottom: var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 999;
+        }
+
+        .logo { font-size: 2.2rem; font-weight: 700; text-transform: lowercase; letter-spacing: -2px; }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.8rem;
+            border: 1px solid transparent;
+            padding: 5px 10px;
+            text-transform: uppercase;
+        }
+
+        nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
+
+        .section-title {
+            padding: 1.2rem 2rem;
+            background: var(--text);
+            color: var(--bg);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: var(--border);
+        }
+
+        /* HERO */
+        .hero { padding: 4rem 2rem; border-bottom: var(--border); }
+        h1 { font-size: 6vw; line-height: 0.8; text-transform: lowercase; word-break: break-all; }
+        .hero p { font-size: 1.5rem; color: var(--accent); margin-top: 1rem; }
+
+        /* MANIFESTO */
+        .manifesto { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); }
+        .manifesto-box { padding: 4rem 2rem; border-right: var(--border); font-size: 1.5rem; text-transform: uppercase; }
+        .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
+
+        /* CREDENTIALS */
+        .credentials { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); border-bottom: var(--border); }
+        .cred-item { padding: 2rem; border-right: var(--border); }
+        .cred-item h3 { color: var(--accent); margin-bottom: 1rem; font-size: 0.9rem; }
+        .cred-item p { font-size: 1.2rem; }
+
+        /* AUDIO SECTION */
+        .audio-container { padding: 2rem; border-bottom: var(--border); background: #050505; }
+
+        /* CONTACT/BOOKING */
+        .contact { padding: 6rem 2rem; text-align: center; border-bottom: var(--border); }
+        .btn {
+            display: inline-block; padding: 2rem 4rem; border: var(--border);
+            color: var(--text); text-decoration: none; font-size: 2.5rem; font-weight: bold;
+            transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .btn:hover { background: var(--accent); color: var(--bg); transform: translateY(-5px); }
+
+        /* CARROSSEL VISUAL */
+        .visual-archive { background: #050505; border-bottom: var(--border); position: relative; }
+        .carousel-wrapper { overflow: hidden; position: relative; width: 100%; }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+        .slide { min-width: 100%; height: 450px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .slide img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            filter: grayscale(100%) contrast(110%) brightness(0.9);
+            transition: 0.5s;
+        }
+        .slide img:hover { filter: grayscale(0%) contrast(100%); }
+        
+        .carousel-nav {
+            position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 100;
+        }
+        .nav-btn {
+            background: var(--bg); color: var(--text); border: var(--border);
+            padding: 15px 25px; cursor: pointer; font-family: 'Space Mono'; font-weight: bold;
+        }
+        .nav-btn:hover { background: var(--accent); color: var(--bg); }
+
+        footer { padding: 3rem 2rem; text-align: center; font-size: 0.8rem; opacity: 0.6; letter-spacing: 2px; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 22vw; }
+            .manifesto { grid-template-columns: 1fr; }
+            .manifesto-box { border-right: none; border-bottom: var(--border); }
+            .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; }
+            .slide { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">noizzed</div>
+        <nav>
+            <a href="#lab">LABORATÓRIO</a>
+            <a href="#transmissao">TRANSMISSÃO</a>
+            <a href="#contato">BOOKINGS</a>
+            <a href="#blog">BLOG</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Pista é território.<br> Cabine é laboratório.</h1>
+        <p>[ música como processo. ]</p>
+    </section>
+
+    <section class="manifesto">
+        <div class="manifesto-box">
+            dj e produtora.<br>
+CRIAÇÃO, PERFORMANCE E ENSINO.
+        </div>
+        <div class="manifesto-box highlight">
+       sets únicos construídos ao vivo a partir da leitura da pista.
+autorais, clássicos, acapellas, samples e loops como matéria-prima.
+        </div>
+    </section>
+
+    <div class="section-title">Credenciais & Log de Suporte</div>
+    <section class="credentials">
+        <div class="cred-item">
+            <h3>GLOBAL SUPPORT</h3>
+            <p>Richie Hawtin<br>Peggy Gou<br>Paco Osuna</p>
+        </div>
+        <div class="cred-item">
+            <h3>RELEASES</h3>
+            <p>Tantsa Records<br>Letrux (Remix Oficial)</p>
+        </div>
+        <div class="cred-item">
+            <h3>SOUNDSCAPE</h3>
+            <p>Detroit, Euro, Trance & Breaks. Controle e risco em tempo real.</p>
+        </div>
+    </section>
+
+    <div class="section-title" id="lab">Laboratório Sonoro // Audio_Data</div>
+    <section class="audio-container">
+        <!-- SoundCloud Embed Início -->
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100; margin-top: 10px;">
+            <a href="https://soundcloud.com/noizzedofficial" title="noizzed" target="_blank" style="color: #cccccc; text-decoration: none;">noizzed</a> · <a href="https://soundcloud.com/noizzedofficial/sets/sets-live" title="DJ SETS / LIVES / PODCASTS NOIZZED" target="_blank" style="color: #cccccc; text-decoration: none;">DJ SETS / LIVES / PODCASTS NOIZZED</a>
+        </div>
+        <!-- SoundCloud Embed Fim -->
+    </section>
+
+    <div class="section-title" id="transmissao">Transmissão // Mentorias</div>
+    <section class="manifesto">
+        <div class="manifesto-box" style="font-size: 1.1rem;">
+            CURSOS E MENTORIAS SONORAS
+        </div>
+        <div class="manifesto-box" style="font-size: 1rem; border-right: none;">
+            Foco em produção autoral e técnicas avançadas de live mixing. Desconstrução da técnica para o domínio do erro criativo.
+        </div>
+    </section>
+
+    <section class="contact" id="contato">
+        <p style="margin-bottom: 2.5rem; letter-spacing: 5px; opacity: 0.7;">INICIAR PROTOCOLO DE CONTRATAÇÃO</p>
+        <a href="mailto:contato@noizzed.xyz" class="btn">BOOKING_NOW</a>
+    </section>
+
+    <div class="section-title">Visual_Archive // Performance_Capture</div>
+    <section class="visual-archive">
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="track">
+                <div class="slide">
+                    <img src="https://i.postimg.cc/mD3fF27g/noizzed-action.png" alt="Noizzed live 01">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?q=80&w=2070&auto=format&fit=crop" alt="Equipment 02">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1598387181032-a3103a2db5b3?q=80&w=2076&auto=format&fit=crop" alt="Crowd 03">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-nav">
+            <button class="nav-btn" onclick="moveSlide(-1)"> PREV </button>
+            <button class="nav-btn" onclick="moveSlide(1)"> NEXT </button>
+        </div>
+    </section>	
+
+    <footer>
+        NOIZZED // ALL RIGHTS RESERVED // STO-BRAZIL-2025 // PROTOCOL_V.2.0
+    </footer>
+
+    <script>
+        let currentIndex = 0;
+        const track = document.getElementById('track');
+        const slides = document.querySelectorAll('.slide');
+
+        function moveSlide(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = slides.length - 1;
+            if (currentIndex >= slides.length) currentIndex = 0;
+            
+            const offset = currentIndex * -100;
+            track.style.transform = `translateX(${offset}%)`;
+        }
+    </script>
+</body>
+</html>
