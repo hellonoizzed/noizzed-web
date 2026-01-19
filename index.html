@@ -12,10 +12,10 @@
             --bg: #000000;
             --text: #ffffff;
             --accent: #00ff41; /* Verde Hacker */
-            --border: 2px solid #ffffff;
+            --border: 1px solid #333;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg);
@@ -25,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* Efeito Scanline */
+        /* Scanline Overlay */
         body::before {
             content: " ";
             display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
@@ -34,183 +34,243 @@
             z-index: 1000; background-size: 100% 4px, 3px 100%; pointer-events: none;
         }
 
-        /* Animação Glitch no Logo */
-        .glitch { position: relative; animation: glitch 2s linear infinite; }
-        @keyframes glitch {
-            2%, 64% { transform: translate(2px,0) skew(0deg); }
-            4%, 60% { transform: translate(-2px,0) skew(0deg); }
-            62% { transform: translate(0,0) skew(5deg); }
-        }
-
+        /* HEADER & LOGO DINÂMICO */
         header {
-            padding: 2rem; border-bottom: var(--border); display: flex;
+            padding: 1.5rem 2rem; border-bottom: var(--border); display: flex;
             justify-content: space-between; align-items: center;
-            position: sticky; top: 0; background: var(--bg); z-index: 999;
+            position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 999;
+            backdrop-filter: blur(5px); transition: 0.3s;
         }
 
-        .logo { font-size: 2.2rem; font-weight: 700; text-transform: lowercase; letter-spacing: -2px; }
+        .logo { 
+            font-size: 1rem; font-weight: 400; color: #666; 
+            transition: 0.3s; cursor: default; letter-spacing: 1px;
+        }
+        
+        /* Estado "NOIZZED" (Ativado via JS no scroll) */
+        .logo.active {
+            font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -2px;
+            text-shadow: 2px 0 var(--accent);
+        }
 
+        nav { display: flex; gap: 20px; }
         nav a {
-            color: var(--text); text-decoration: none; margin-left: 20px;
+            color: var(--text); text-decoration: none;
             font-size: 0.8rem; border: 1px solid transparent; padding: 5px 10px;
-            text-transform: uppercase;
+            text-transform: uppercase; transition: 0.3s;
         }
         nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
 
+        /* PLATFORMS NAV */
+        .platforms-nav {
+            display: flex; padding: 8px 2rem; border-bottom: var(--border);
+            gap: 20px; background: #080808; overflow-x: auto;
+        }
+        .platforms-nav a { color: #666; text-decoration: none; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+        .platforms-nav a:hover { color: var(--accent); text-decoration: underline; }
+
         .section-title {
-            padding: 1.2rem 2rem; background: var(--text); color: var(--bg);
+            padding: 1.2rem 2rem; background: #fff; color: #000;
             font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
-            border-bottom: var(--border);
+            border-bottom: var(--border); margin-top: 0;
         }
 
-        /* HERO */
-        .hero { padding: 4rem 2rem; border-bottom: var(--border); }
-        h1 { font-size: 6vw; line-height: 0.8; text-transform: lowercase; word-break: break-all; }
-        .hero p { font-size: 1.5rem; color: var(--accent); margin-top: 1rem; }
+        /* HERO FLEX (AJUSTADO PARA NOIZZED GIGANTE) */
+        .hero-flex { display: flex; border-bottom: var(--border); min-height: 550px; }
+        .hero-left {
+            flex: 1.2; padding: 4rem 2rem; display: flex; flex-direction: column;
+            justify-content: center; border-right: var(--border);
+        }
+        .hero-right {
+            flex: 1; background: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
+        }
+        .hero-right img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
+        .hero-right img:hover { filter: grayscale(0%); }
+
+        /* H1 GIGANTE PARA O HERO */
+        h1 { 
+            font-size: 13vw; line-height: 0.8; text-transform: lowercase; 
+            margin-bottom: 20px; color: #fff; letter-spacing: -5px; word-break: break-all;
+        }
+        
+        .slogan {
+            font-size: 1.2rem; color: var(--accent); margin-top: 10px;
+            border-left: 2px solid var(--accent); padding-left: 15px;
+            line-height: 1.4; text-transform: uppercase; letter-spacing: 1px;
+        }
 
         /* MANIFESTO */
         .manifesto { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); }
-        .manifesto-box { padding: 4rem 2rem; border-right: var(--border); font-size: 1.3rem; text-transform: uppercase; }
+        .manifesto-box { padding: 4rem 2rem; border-right: var(--border); font-size: 1.1rem; text-transform: uppercase; line-height: 1.6; }
         .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
 
         /* CREDENTIALS */
-        .credentials { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); border-bottom: var(--border); }
+        .credentials { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); border-bottom: var(--border); }
         .cred-item { padding: 2rem; border-right: var(--border); }
-        .cred-item h3 { color: var(--accent); margin-bottom: 1rem; font-size: 0.9rem; }
-        .cred-item p { font-size: 1.1rem; }
+        .cred-item h3 { color: var(--accent); margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 1px; }
 
-        /* AREAS DE CONTEUDO */
-        .content-container { padding: 2rem; border-bottom: var(--border); background: #050505; }
+        /* CONTENT AREAS */
+        .audio-container { padding: 3rem 2rem; border-bottom: var(--border); background: #050505; }
         
-        /* GRADE DE DISCOGRAFIA */
-        .discog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
-        .discog-item img { width: 100%; filter: grayscale(100%); transition: 0.3s; border: 1px solid #333; }
-        .discog-item img:hover { filter: grayscale(0%); border-color: var(--accent); }
+        .discog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 2rem; border-bottom: var(--border); }
+        .discog-item img { width: 100%; border: 1px solid #333; transition: 0.3s; filter: grayscale(100%); cursor: pointer; }
+        .discog-item img:hover { filter: grayscale(0%); border-color: var(--accent); transform: scale(1.02); }
 
-        /* LISTA DE IMPRENSA */
-        .press-list li { margin-bottom: 1rem; list-style: none; }
-        .press-list a { color: var(--text); text-decoration: none; border-bottom: 1px dashed #555; }
-        .press-list a:hover { color: var(--accent); border-bottom: 1px solid var(--accent); }
+        .press-list { padding: 2rem; border-bottom: var(--border); }
+        .press-list li { list-style: none; margin-bottom: 1.5rem; border-bottom: 1px dashed #333; padding-bottom: 10px; }
+        .press-list a { color: var(--text); text-decoration: none; font-size: 1.1rem; }
+        .press-list a:hover { color: var(--accent); }
 
-        /* CONTACT/BOOKING */
+        /* CONTACT */
         .contact { padding: 6rem 2rem; text-align: center; border-bottom: var(--border); }
         .btn {
-            display: inline-block; padding: 2rem 4rem; border: var(--border);
-            color: var(--text); text-decoration: none; font-size: 2.5rem; font-weight: bold;
-            transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            display: inline-block; padding: 1.5rem 3rem; border: 2px solid #fff;
+            color: var(--text); text-decoration: none; font-size: 1.5rem; font-weight: bold;
+            transition: 0.3s; text-transform: uppercase;
         }
-        .btn:hover { background: var(--accent); color: var(--bg); transform: translateY(-5px); }
+        .btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); box-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
 
-        /* CARROSSEL */
-        .visual-archive { background: #050505; border-bottom: var(--border); position: relative; }
+        /* GALLERY */
+        .visual-archive { background: #000; border-bottom: var(--border); position: relative; }
         .carousel-wrapper { overflow: hidden; position: relative; width: 100%; }
         .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         .slide { min-width: 100%; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .slide img:hover { filter: grayscale(0%); }
+        .slide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
+        
         .carousel-nav { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 100; }
-        .nav-btn { background: var(--bg); color: var(--text); border: var(--border); padding: 15px 25px; cursor: pointer; font-family: 'Space Mono'; font-weight: bold; }
-        .nav-btn:hover { background: var(--accent); color: var(--bg); }
+        .nav-btn { background: #000; color: #fff; border: 1px solid #fff; padding: 15px 25px; cursor: pointer; font-family: 'Space Mono'; }
+        .nav-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
 
-        footer { padding: 3rem 2rem; text-align: center; font-size: 0.8rem; opacity: 0.6; letter-spacing: 2px; }
+        footer { padding: 3rem 2rem; text-align: center; font-size: 0.7rem; opacity: 0.5; border-top: var(--border); }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 18vw; }
+        @media (max-width: 850px) {
+            h1 { font-size: 20vw; }
+            .hero-flex { flex-direction: column; height: auto; }
+            .hero-right { height: 350px; border-top: var(--border); }
             .manifesto { grid-template-columns: 1fr; }
             .manifesto-box { border-right: none; border-bottom: var(--border); }
-            .slide { height: 300px; }
-            .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; }
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            nav { flex-wrap: wrap; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BOTÃO FLUTUANTE DE WHATSAPP -->
-    <!-- 🔴 TROQUE O NÚMERO ABAIXO PELO SEU (DDD + NÚMERO) -->
-    <a href="https://wa.me/5511999999999?text=Ola%20vim%20pelo%20site%20noizzed" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2rem; text-decoration: none; z-index: 9999; border: 2px solid #000; box-shadow: 4px 4px 0px #000;">
-        💬
-    </a>
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/55SEUNUMERO?text=Ola%20vim%20pelo%20site" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2rem; text-decoration: none; z-index: 9999; border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.5);">💬</a>
 
     <header>
-        <div class="logo glitch">noizzed</div>
+        <!-- Começa como "não é barulho" e vira "noizzed" ao rolar -->
+        <div class="logo" id="dynamic-logo">não é barulho</div>
+        
         <nav>
-            <a href="#visual">VISUAL</a>
-            <a href="#lab">LAB</a>
-            <a href="#releases">RELEASES</a>
-            <a href="#press">IMPENSA</a>
+            <a href="#lab">LABORATÓRIO</a>
+            <a href="#transmissao">TRANSMISSÃO</a>
+            <a href="#booking">BOOKINGS</a>
+            <a href="#blog">BLOG</a>
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Pista é território.<br> Cabine é laboratório.</h1>
-        <p>[ música como processo. ]</p>
+    <div class="platforms-nav">
+        <!-- 🔴 LINKS REAIS -->
+        <a href="LINK_BEATPORT" target="_blank">beatport</a>
+        <a href="LINK_TRAXSOURCE" target="_blank">traxsource</a>
+        <a href="LINK_SPOTIFY" target="_blank">spotify</a>
+        <a href="LINK_SOUNDCLOUD" target="_blank">soundcloud</a>
+        <a href="LINK_BANDCAMP" target="_blank">bandcamp</a>
+        <a href="LINK_YOUTUBE" target="_blank">youtube</a>
+        <a href="https://instagram.com/noizzedofficial" target="_blank">instagram</a>
+    </div>
+
+    <section class="hero-flex">
+        <div class="hero-left">
+            <!-- NOME GIGANTE NO HERO -->
+            <h1>noizzed</h1>
+            
+            <!-- FRASE COMO SUPORTE EMBAIXO -->
+            <p class="slogan">
+                Pista é território.<br>
+                Cabine é laboratório.
+            </p>
+            
+            <!-- PRESS KIT BOX -->
+            <div style="margin-top: 3rem; padding-left: 1rem;">
+                <p style="font-size: 0.7rem; margin-bottom: 5px; color: #666; letter-spacing: 2px;">PROMOTER_AREA</p>
+                <a href="LINK_DO_SEU_DRIVE" target="_blank" style="color: #fff; text-decoration: underline; font-weight: bold; font-size: 0.9rem;">
+                    > DOWNLOAD PRESS KIT
+                </a>
+            </div>
+        </div>
         
-        <!-- BOTÃO DE PRESSKIT -->
-        <!-- 🔴 COLE O LINK DO SEU DRIVE DENTRO DAS ASPAS ONDE DIZ 'LINK_DO_DRIVE_AQUI' -->
-        <div style="margin-top: 2rem; border: 1px dashed #00ff41; padding: 1rem; display: inline-block;">
-            <p style="font-size: 0.7rem; margin-bottom: 10px; color: #888;">[ PROMOTER AREA ]</p>
-            <a href="LINK_DO_DRIVE_AQUI" target="_blank" style="background: #00ff41; padding: 10px 20px; text-decoration: none; font-weight: bold; color: #000; font-size: 0.9rem;">
-                DOWNLOAD PRESS KIT (PDF/FOTOS)
-            </a>
+        <div class="hero-right">
+            <!-- 🔴 TROQUE PELA FOTO DO GITHUB (ex: foto-hero.jpg) -->
+            <img src="https://images.unsplash.com/photo-1598387181032-a3103a2db5b3?q=80&w=2076" alt="Noizzed Atmosphere">
         </div>
     </section>
 
     <section class="manifesto">
         <div class="manifesto-box">
-            dj e produtora.<br><br>
             Sets construídos ao vivo a partir da leitura da pista.
+            Matéria-prima: loops, samples e síntese sonora.
         </div>
         <div class="manifesto-box highlight">
             CEO da ESTUFA RECORDS.<br>
-            Fundadora do coletivo TPM (#todaspelamusica).<br><br>
-            > Quebrando estruturas e hackeando o sistema fonográfico.
+            Fundadora do coletivo TPM (#todaspelamusica).<br>
+            Hackeando o sistema fonográfico.
         </div>
     </section>
 
-    <div class="section-title">Visual_Feed // Live_Transmission</div>
-    <section class="content-container" id="visual" style="display: flex; flex-wrap: wrap; gap: 10px; padding: 0;">
-        <!-- 🔴 VÍDEO 1: TROQUE O CÓDIGO FINAL DO LINK DO YOUTUBE -->
-        <div style="flex: 1 1 400px; min-height: 350px;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/XXXXXXX" frameborder="0" allowfullscreen></iframe>
+    <div class="section-title">Credenciais & Suporte</div>
+    <section class="credentials">
+        <div class="cred-item">
+            <h3>GLOBAL SUPPORT</h3>
+            <p>Richie Hawtin<br>Peggy Gou<br>Paco Osuna</p>
         </div>
-        <!-- 🔴 VÍDEO 2: TROQUE O CÓDIGO FINAL DO LINK DO YOUTUBE -->
-        <div style="flex: 1 1 400px; min-height: 350px;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/XXXXXXX" frameborder="0" allowfullscreen></iframe>
+        <div class="cred-item">
+            <h3>RELEASES</h3>
+            <p>Estufa Records<br>Tantsa<br>Letrux (RMX)</p>
+        </div>
+        <div class="cred-item">
+            <h3>SOUNDSCAPE</h3>
+            <p>Detroit, Euro, Trance & Breaks.</p>
         </div>
     </section>
 
-    <div class="section-title" id="lab">Laboratório Sonoro // Sets</div>
-    <section class="content-container">
-        <!-- 🔴 COLE AQUI O CÓDIGO EMBED DO SEU SOUNDCLOUD -->
-        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%2300ff41&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-    </section>
-
-    <div class="section-title" id="releases">Database // Discography_Log</div>
-    <section class="content-container">
-        <div class="discog-grid">
-            <!-- 🔴 CAPAS DOS ÁLBUNS: Suba as imagens no GitHub e coloque o nome delas aqui -->
-            <!-- Se não tiver a imagem ainda, deixe como está para testar -->
-            <div class="discog-item"><img src="https://via.placeholder.com/300/000000/00ff41?text=EP+01" alt="Release 1"></div>
-            <div class="discog-item"><img src="https://via.placeholder.com/300/000000/00ff41?text=ALBUM" alt="Release 2"></div>
-            <div class="discog-item"><img src="https://via.placeholder.com/300/000000/00ff41?text=REMIX" alt="Release 3"></div>
-            <div class="discog-item"><img src="https://via.placeholder.com/300/000000/00ff41?text=SINGLE" alt="Release 4"></div>
-            <!-- Copie a linha acima para adicionar mais capas -->
+    <div class="section-title">Visual_Feed // Live_Action</div>
+    <section style="display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border);">
+        <!-- 🔴 VIDEOS DO YOUTUBE -->
+        <div style="flex: 1 1 400px; height: 350px;">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/SEU_VIDEO_1" frameborder="0" allowfullscreen></iframe>
         </div>
-        <p style="margin-top: 1rem; color: var(--accent); font-size: 0.8rem;">> ACESSO COMPLETO: SPOTIFY / BANDCAMP / BEATPORT</p>
+        <div style="flex: 1 1 400px; height: 350px;">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/SEU_VIDEO_2" frameborder="0" allowfullscreen></iframe>
+        </div>
     </section>
 
-    <div class="section-title" id="press">System_Logs // Press_Clipping</div>
-    <section class="content-container">
-        <ul class="press-list">
-            <!-- 🔴 LINKS DE IMPRENSA: Troque o '#' pelo link da matéria -->
-            <li><span style="color: var(--accent);">[MIXMAG]</span> <a href="#" target="_blank">"Ousadia sonora e sets inusitados: conheça noizzed"</a></li>
-            <li><span style="color: var(--accent);">[PORTAL HOUSE MAG]</span> <a href="#" target="_blank">"Uma mulher à frente de sua própria estufa..."</a></li>
-            <li><span style="color: var(--accent);">[D-EDGE]</span> <a href="#" target="_blank">"Live performance breakdown e entrevista exclusiva"</a></li>
-            <li><span style="color: var(--accent);">[ESTUFA REC]</span> <a href="#" target="_blank">"Lançamento do álbum Hack the System"</a></li>
+    <div class="section-title" id="lab">Audio_Data // Discography</div>
+    <section class="discog-grid">
+        <!-- 🔴 CAPAS DOS ALBUNS -->
+        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=ESTUFA+REC" alt="Capa 1"></div>
+        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=TANTSA" alt="Capa 2"></div>
+        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=LETRUX" alt="Capa 3"></div>
+        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=SINGLE" alt="Capa 4"></div>
+    </section>
+
+    <section class="audio-container">
+        <!-- 🔴 SOUNDCLOUD -->
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%2300ff41&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+    </section>
+
+    <div class="section-title" id="transmissao">Press_Log // Mídia</div>
+    <section class="press-list">
+        <ul>
+            <li><span style="color:var(--accent)">[MIXMAG]</span> <a href="#" target="_blank">"Ousadia sonora e sets inusitados: conheça noizzed"</a></li>
+            <li><span style="color:var(--accent)">[HOUSE MAG]</span> <a href="#" target="_blank">"Uma mulher à frente de sua própria estufa"</a></li>
+            <li><span style="color:var(--accent)">[D-EDGE]</span> <a href="#" target="_blank">"Entrevista exclusiva sobre live performance"</a></li>
         </ul>
     </section>
 
-    <section class="contact" id="contato">
+    <section class="contact" id="booking">
         <p style="margin-bottom: 2.5rem; letter-spacing: 5px; opacity: 0.7;">INICIAR PROTOCOLO DE CONTRATAÇÃO</p>
         <a href="mailto:contato@noizzed.xyz" class="btn">BOOKING_NOW</a>
     </section>
@@ -219,10 +279,10 @@
     <section class="visual-archive">
         <div class="carousel-wrapper">
             <div class="carousel-track" id="track">
-                <!-- 🔴 FOTOS DA GALERIA: Suba suas fotos no GitHub e troque os nomes aqui -->
-                <div class="slide"><img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?q=80&w=2070&auto=format&fit=crop" alt="Foto 1"></div>
-                <div class="slide"><img src="https://images.unsplash.com/photo-1598387181032-a3103a2db5b3?q=80&w=2076&auto=format&fit=crop" alt="Foto 2"></div>
-                <div class="slide"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop" alt="Foto 3"></div>
+                <!-- 🔴 FOTOS DA GALERIA -->
+                <div class="slide"><img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?q=80&w=2070" alt="Foto 1"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070" alt="Foto 2"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070" alt="Foto 3"></div>
             </div>
         </div>
         <div class="carousel-nav">
@@ -232,13 +292,29 @@
     </section>	
 
     <footer>
-        NOIZZED // ALL RIGHTS RESERVED // STO-BRAZIL-2026 // PROTOCOL_V.3.0
+        NOIZZED // ALL RIGHTS RESERVED // STO-BRAZIL-2026 // PROTOCOL_V.5.0
     </footer>
 
     <script>
+        // Mágica do Logo: começa como "não é barulho" e vira "noizzed"
+        window.addEventListener('scroll', function() {
+            const logo = document.getElementById('dynamic-logo');
+            if (window.scrollY > 80) {
+                // Ao rolar: vira a marca
+                logo.innerText = 'noizzed';
+                logo.classList.add('active');
+            } else {
+                // No topo: vira a frase
+                logo.innerText = 'não é barulho';
+                logo.classList.remove('active');
+            }
+        });
+
+        // Carrossel
         let currentIndex = 0;
         const track = document.getElementById('track');
         const slides = document.querySelectorAll('.slide');
+
         function moveSlide(direction) {
             currentIndex += direction;
             if (currentIndex < 0) currentIndex = slides.length - 1;
