@@ -12,7 +12,7 @@
             --bg: #000000;
             --text: #ffffff;
             --accent: #00ff41; /* Verde Hacker */
-            --border: 1px solid #333;
+            --border: 1px solid #333; /* Borda mais sutil */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -43,16 +43,23 @@
         }
 
         .logo { 
-            font-size: 1rem; font-weight: 400; color: #666; 
+            font-size: 1.2rem; font-weight: 400; color: #888; 
             transition: 0.3s; cursor: default; letter-spacing: 1px;
         }
         
-        /* Estado "NOIZZED" (Ativado via JS no scroll) */
+        /* Estado "NOIZZED" (Ativado via JS) */
         .logo.active {
             font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -2px;
-            text-shadow: 2px 0 var(--accent);
+            animation: glitch 2s linear infinite;
         }
 
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px,0) skew(0deg); }
+            4%, 60% { transform: translate(-2px,0) skew(0deg); }
+            62% { transform: translate(0,0) skew(5deg); }
+        }
+
+        /* NAV COMPLETO */
         nav { display: flex; gap: 20px; }
         nav a {
             color: var(--text); text-decoration: none;
@@ -61,7 +68,7 @@
         }
         nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
 
-        /* PLATFORMS NAV */
+        /* PLATFORMS NAV (Barra fina) */
         .platforms-nav {
             display: flex; padding: 8px 2rem; border-bottom: var(--border);
             gap: 20px; background: #080808; overflow-x: auto;
@@ -75,8 +82,8 @@
             border-bottom: var(--border); margin-top: 0;
         }
 
-        /* HERO FLEX (AJUSTADO PARA NOIZZED GIGANTE) */
-        .hero-flex { display: flex; border-bottom: var(--border); min-height: 550px; }
+        /* HERO FLEX (Sem repetição do nome) */
+        .hero-flex { display: flex; border-bottom: var(--border); min-height: 500px; }
         .hero-left {
             flex: 1.2; padding: 4rem 2rem; display: flex; flex-direction: column;
             justify-content: center; border-right: var(--border);
@@ -84,20 +91,13 @@
         .hero-right {
             flex: 1; background: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
         }
+        /* Efeito na foto principal */
         .hero-right img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
         .hero-right img:hover { filter: grayscale(0%); }
 
-        /* H1 GIGANTE PARA O HERO */
-        h1 { 
-            font-size: 13vw; line-height: 0.8; text-transform: lowercase; 
-            margin-bottom: 20px; color: #fff; letter-spacing: -5px; word-break: break-all;
-        }
-        
-        .slogan {
-            font-size: 1.2rem; color: var(--accent); margin-top: 10px;
-            border-left: 2px solid var(--accent); padding-left: 15px;
-            line-height: 1.4; text-transform: uppercase; letter-spacing: 1px;
-        }
+        h1 { font-size: 5vw; line-height: 0.9; text-transform: uppercase; margin-bottom: 20px; color: #fff; }
+        .accent-text { color: var(--accent); }
+        .hero-left p { font-size: 1.1rem; color: #888; max-width: 80%; }
 
         /* MANIFESTO */
         .manifesto { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); }
@@ -144,7 +144,7 @@
         footer { padding: 3rem 2rem; text-align: center; font-size: 0.7rem; opacity: 0.5; border-top: var(--border); }
 
         @media (max-width: 850px) {
-            h1 { font-size: 20vw; }
+            h1 { font-size: 12vw; }
             .hero-flex { flex-direction: column; height: auto; }
             .hero-right { height: 350px; border-top: var(--border); }
             .manifesto { grid-template-columns: 1fr; }
@@ -160,7 +160,7 @@
     <a href="https://wa.me/55SEUNUMERO?text=Ola%20vim%20pelo%20site" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2rem; text-decoration: none; z-index: 9999; border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.5);">💬</a>
 
     <header>
-        <!-- Começa como "não é barulho" e vira "noizzed" ao rolar -->
+        <!-- O ID 'dynamic-logo' SERÁ CONTROLADO PELO JAVASCRIPT LÁ EMBAIXO -->
         <div class="logo" id="dynamic-logo">não é barulho</div>
         
         <nav>
@@ -172,7 +172,7 @@
     </header>
 
     <div class="platforms-nav">
-        <!-- 🔴 LINKS REAIS -->
+        <!-- 🔴 PREENCHA SEUS LINKS REAIS AQUI -->
         <a href="LINK_BEATPORT" target="_blank">beatport</a>
         <a href="LINK_TRAXSOURCE" target="_blank">traxsource</a>
         <a href="LINK_SPOTIFY" target="_blank">spotify</a>
@@ -184,26 +184,23 @@
 
     <section class="hero-flex">
         <div class="hero-left">
-            <!-- NOME GIGANTE NO HERO -->
-            <h1>noizzed</h1>
+            <!-- Título Principal sem repetir "Noizzed" -->
+            <h1>Pista é <span class="accent-text">território.</span><br>Cabine é <span class="accent-text">laboratório.</span></h1>
             
-            <!-- FRASE COMO SUPORTE EMBAIXO -->
-            <p class="slogan">
-                Pista é território.<br>
-                Cabine é laboratório.
-            </p>
+            <p>[ música como processo de experimentação e controle de risco. ]</p>
             
             <!-- PRESS KIT BOX -->
-            <div style="margin-top: 3rem; padding-left: 1rem;">
+            <div style="margin-top: 3rem; border-left: 3px solid #00ff41; padding-left: 1.5rem;">
                 <p style="font-size: 0.7rem; margin-bottom: 5px; color: #666; letter-spacing: 2px;">PROMOTER_AREA</p>
                 <a href="LINK_DO_SEU_DRIVE" target="_blank" style="color: #fff; text-decoration: underline; font-weight: bold; font-size: 0.9rem;">
-                    > DOWNLOAD PRESS KIT
+                    > DOWNLOAD PRESS KIT (PDF + FOTOS)
                 </a>
             </div>
         </div>
         
         <div class="hero-right">
-            <!-- 🔴 TROQUE PELA FOTO DO GITHUB (ex: foto-hero.jpg) -->
+            <!-- 🔴 FOTO 1: TROQUE PELO NOME DA FOTO QUE VOCÊ SUBIR NO GITHUB -->
+            <!-- DICA: Suba a foto no Github com nome 'foto-hero.jpg' e troque o link abaixo -->
             <img src="https://images.unsplash.com/photo-1598387181032-a3103a2db5b3?q=80&w=2076" alt="Noizzed Atmosphere">
         </div>
     </section>
@@ -238,7 +235,7 @@
 
     <div class="section-title">Visual_Feed // Live_Action</div>
     <section style="display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border);">
-        <!-- 🔴 VIDEOS DO YOUTUBE -->
+        <!-- 🔴 VIDEOS DO YOUTUBE (TROQUE O CÓDIGO FINAL DO LINK) -->
         <div style="flex: 1 1 400px; height: 350px;">
             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/SEU_VIDEO_1" frameborder="0" allowfullscreen></iframe>
         </div>
@@ -249,15 +246,17 @@
 
     <div class="section-title" id="lab">Audio_Data // Discography</div>
     <section class="discog-grid">
-        <!-- 🔴 CAPAS DOS ALBUNS -->
+        <!-- 🔴 CAPAS DOS ALBUNS (Suba no GitHub e coloque o nome do arquivo aqui) -->
+        <!-- Exemplo: <img src="capa-album1.jpg"> -->
         <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=ESTUFA+REC" alt="Capa 1"></div>
         <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=TANTSA" alt="Capa 2"></div>
         <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=LETRUX" alt="Capa 3"></div>
         <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=SINGLE" alt="Capa 4"></div>
+        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=EP+02" alt="Capa 5"></div>
     </section>
 
     <section class="audio-container">
-        <!-- 🔴 SOUNDCLOUD -->
+        <!-- 🔴 SOUNDCLOUD EMBED -->
         <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%2300ff41&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
     </section>
 
@@ -279,7 +278,7 @@
     <section class="visual-archive">
         <div class="carousel-wrapper">
             <div class="carousel-track" id="track">
-                <!-- 🔴 FOTOS DA GALERIA -->
+                <!-- 🔴 FOTOS DA GALERIA (Suba no GitHub e coloque o nome aqui) -->
                 <div class="slide"><img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?q=80&w=2070" alt="Foto 1"></div>
                 <div class="slide"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070" alt="Foto 2"></div>
                 <div class="slide"><img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070" alt="Foto 3"></div>
@@ -292,25 +291,26 @@
     </section>	
 
     <footer>
-        NOIZZED // ALL RIGHTS RESERVED // STO-BRAZIL-2026 // PROTOCOL_V.5.0
+        NOIZZED // ALL RIGHTS RESERVED // STO-BRAZIL-2026 // PROTOCOL_V.4.0
     </footer>
 
+    <!-- SCRIPT DA MÁGICA DO LOGO -->
     <script>
-        // Mágica do Logo: começa como "não é barulho" e vira "noizzed"
+        // Lógica do Scroll
         window.addEventListener('scroll', function() {
             const logo = document.getElementById('dynamic-logo');
-            if (window.scrollY > 80) {
-                // Ao rolar: vira a marca
+            if (window.scrollY > 50) {
+                // Quando desce a tela
                 logo.innerText = 'noizzed';
                 logo.classList.add('active');
             } else {
-                // No topo: vira a frase
+                // Quando está no topo
                 logo.innerText = 'não é barulho';
                 logo.classList.remove('active');
             }
         });
 
-        // Carrossel
+        // Lógica do Carrossel
         let currentIndex = 0;
         const track = document.getElementById('track');
         const slides = document.querySelectorAll('.slide');
