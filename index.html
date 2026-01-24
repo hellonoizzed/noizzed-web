@@ -1,328 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>noizzed | Territory & Laboratory</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #000000;
-            --text: #ffffff;
-            --accent: #00ff41; /* Verde Hacker */
-            --border: 1px solid #333; /* Borda mais sutil */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>noizzed | loading</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Space Mono', monospace;
-            line-height: 1.2;
-            overflow-x: hidden;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* Scanline Overlay */
-        body::before {
-            content: " ";
-            display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 1000; background-size: 100% 4px, 3px 100%; pointer-events: none;
-        }
+    body {
+      height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        /* HEADER & LOGO DINÂMICO */
-        header {
-            padding: 1.5rem 2rem; border-bottom: var(--border); display: flex;
-            justify-content: space-between; align-items: center;
-            position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 999;
-            backdrop-filter: blur(5px); transition: 0.3s;
-        }
+    .container {
+      text-align: center;
+      padding: 24px;
+    }
 
-        .logo { 
-            font-size: 1.2rem; font-weight: 400; color: #888; 
-            transition: 0.3s; cursor: default; letter-spacing: 1px;
-        }
-        
-        /* Estado "NOIZZED" (Ativado via JS) */
-        .logo.active {
-            font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -2px;
-            animation: glitch 2s linear infinite;
-        }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
 
-        @keyframes glitch {
-            2%, 64% { transform: translate(2px,0) skew(0deg); }
-            4%, 60% { transform: translate(-2px,0) skew(0deg); }
-            62% { transform: translate(0,0) skew(5deg); }
-        }
+    p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-bottom: 32px;
+    }
 
-        /* NAV COMPLETO */
-        nav { display: flex; gap: 20px; }
-        nav a {
-            color: var(--text); text-decoration: none;
-            font-size: 0.8rem; border: 1px solid transparent; padding: 5px 10px;
-            text-transform: uppercase; transition: 0.3s;
-        }
-        nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
+    .socials {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
 
-        /* PLATFORMS NAV (Barra fina) */
-        .platforms-nav {
-            display: flex; padding: 8px 2rem; border-bottom: var(--border);
-            gap: 20px; background: #080808; overflow-x: auto;
-        }
-        .platforms-nav a { color: #666; text-decoration: none; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
-        .platforms-nav a:hover { color: var(--accent); text-decoration: underline; }
+    .socials a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
 
-        .section-title {
-            padding: 1.2rem 2rem; background: #fff; color: #000;
-            font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
-            border-bottom: var(--border); margin-top: 0;
-        }
-
-        /* HERO FLEX (Sem repetição do nome) */
-        .hero-flex { display: flex; border-bottom: var(--border); min-height: 500px; }
-        .hero-left {
-            flex: 1.2; padding: 4rem 2rem; display: flex; flex-direction: column;
-            justify-content: center; border-right: var(--border);
-        }
-        .hero-right {
-            flex: 1; background: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
-        }
-        /* Efeito na foto principal */
-        .hero-right img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .hero-right img:hover { filter: grayscale(0%); }
-
-        h1 { font-size: 5vw; line-height: 0.9; text-transform: uppercase; margin-bottom: 20px; color: #fff; }
-        .accent-text { color: var(--accent); }
-        .hero-left p { font-size: 1.1rem; color: #888; max-width: 80%; }
-
-        /* MANIFESTO */
-        .manifesto { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); }
-        .manifesto-box { padding: 4rem 2rem; border-right: var(--border); font-size: 1.1rem; text-transform: uppercase; line-height: 1.6; }
-        .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
-
-        /* CREDENTIALS */
-        .credentials { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); border-bottom: var(--border); }
-        .cred-item { padding: 2rem; border-right: var(--border); }
-        .cred-item h3 { color: var(--accent); margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 1px; }
-
-        /* CONTENT AREAS */
-        .audio-container { padding: 3rem 2rem; border-bottom: var(--border); background: #050505; }
-        
-        .discog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 2rem; border-bottom: var(--border); }
-        .discog-item img { width: 100%; border: 1px solid #333; transition: 0.3s; filter: grayscale(100%); cursor: pointer; }
-        .discog-item img:hover { filter: grayscale(0%); border-color: var(--accent); transform: scale(1.02); }
-
-        .press-list { padding: 2rem; border-bottom: var(--border); }
-        .press-list li { list-style: none; margin-bottom: 1.5rem; border-bottom: 1px dashed #333; padding-bottom: 10px; }
-        .press-list a { color: var(--text); text-decoration: none; font-size: 1.1rem; }
-        .press-list a:hover { color: var(--accent); }
-
-        /* CONTACT */
-        .contact { padding: 6rem 2rem; text-align: center; border-bottom: var(--border); }
-        .btn {
-            display: inline-block; padding: 1.5rem 3rem; border: 2px solid #fff;
-            color: var(--text); text-decoration: none; font-size: 1.5rem; font-weight: bold;
-            transition: 0.3s; text-transform: uppercase;
-        }
-        .btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); box-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
-
-        /* GALLERY */
-        .visual-archive { background: #000; border-bottom: var(--border); position: relative; }
-        .carousel-wrapper { overflow: hidden; position: relative; width: 100%; }
-        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
-        .slide { min-width: 100%; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
-        
-        .carousel-nav { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 100; }
-        .nav-btn { background: #000; color: #fff; border: 1px solid #fff; padding: 15px 25px; cursor: pointer; font-family: 'Space Mono'; }
-        .nav-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
-
-        footer { padding: 3rem 2rem; text-align: center; font-size: 0.7rem; opacity: 0.5; border-top: var(--border); }
-
-        @media (max-width: 850px) {
-            h1 { font-size: 12vw; }
-            .hero-flex { flex-direction: column; height: auto; }
-            .hero-right { height: 350px; border-top: var(--border); }
-            .manifesto { grid-template-columns: 1fr; }
-            .manifesto-box { border-right: none; border-bottom: var(--border); }
-            header { flex-direction: column; gap: 15px; text-align: center; }
-            nav { flex-wrap: wrap; justify-content: center; }
-        }
-    </style>
+    .socials a:hover {
+      opacity: 1;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
+    <h1>noizzed</h1>
+    <p></p>
 
-    <!-- WHATSAPP FLOAT -->
-    <a href="https://wa.me/55SEUNUMERO?text=Ola%20vim%20pelo%20site" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2rem; text-decoration: none; z-index: 9999; border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.5);">💬</a>
-
-    <header>
-        <!-- O ID 'dynamic-logo' SERÁ CONTROLADO PELO JAVASCRIPT LÁ EMBAIXO -->
-        <div class="logo" id="dynamic-logo">não é barulho</div>
-        
-        <nav>
-            <a href="#lab">LABORATÓRIO</a>
-            <a href="#transmissao">TRANSMISSÃO</a>
-            <a href="#booking">BOOKINGS</a>
-            <a href="#blog">BLOG</a>
-        </nav>
-    </header>
-
-    <div class="platforms-nav">
-        <!-- 🔴 PREENCHA SEUS LINKS REAIS AQUI -->
-        <a href="LINK_BEATPORT" target="_blank">beatport</a>
-        <a href="LINK_TRAXSOURCE" target="_blank">traxsource</a>
-        <a href="LINK_SPOTIFY" target="_blank">spotify</a>
-        <a href="LINK_SOUNDCLOUD" target="_blank">soundcloud</a>
-        <a href="LINK_BANDCAMP" target="_blank">bandcamp</a>
-        <a href="LINK_YOUTUBE" target="_blank">youtube</a>
-        <a href="https://instagram.com/noizzedofficial" target="_blank">instagram</a>
+    <div class="socials">
+      <a href="https://instagram.com/noizzed" target="_blank">instagram</a>
+      <a href="https://soundcloud.com/noizzedofficial" target="_blank">soundcloud</a>
+      <a href="https://www.youtube.com/@noizzed" target="_blank">youtube</a>
     </div>
-
-    <section class="hero-flex">
-        <div class="hero-left">
-            <!-- Título Principal sem repetir "Noizzed" -->
-            <h1>Pista é <span class="accent-text">território.</span><br>Cabine é <span class="accent-text">laboratório.</span></h1>
-            
-            <p>[ música como processo de experimentação e controle de risco. ]</p>
-            
-            <!-- PRESS KIT BOX -->
-            <div style="margin-top: 3rem; border-left: 3px solid #00ff41; padding-left: 1.5rem;">
-                <p style="font-size: 0.7rem; margin-bottom: 5px; color: #666; letter-spacing: 2px;">PROMOTER_AREA</p>
-                <a href="LINK_DO_SEU_DRIVE" target="_blank" style="color: #fff; text-decoration: underline; font-weight: bold; font-size: 0.9rem;">
-                    > DOWNLOAD PRESS KIT (PDF + FOTOS)
-                </a>
-            </div>
-        </div>
-        
-        <div class="hero-right">
-            <!-- 🔴 FOTO 1: TROQUE PELO NOME DA FOTO QUE VOCÊ SUBIR NO GITHUB -->
-            <!-- DICA: Suba a foto no Github com nome 'foto-hero.jpg' e troque o link abaixo -->
-            <img src="https://images.unsplash.com/photo-1598387181032-a3103a2db5b3?q=80&w=2076" alt="Noizzed Atmosphere">
-        </div>
-    </section>
-
-    <section class="manifesto">
-        <div class="manifesto-box">
-            Sets construídos ao vivo a partir da leitura da pista.
-            Matéria-prima: loops, samples e síntese sonora.
-        </div>
-        <div class="manifesto-box highlight">
-            CEO da ESTUFA RECORDS.<br>
-            Fundadora do coletivo TPM (#todaspelamusica).<br>
-            Hackeando o sistema fonográfico.
-        </div>
-    </section>
-
-    <div class="section-title">Credenciais & Suporte</div>
-    <section class="credentials">
-        <div class="cred-item">
-            <h3>GLOBAL SUPPORT</h3>
-            <p>Richie Hawtin<br>Peggy Gou<br>Paco Osuna</p>
-        </div>
-        <div class="cred-item">
-            <h3>RELEASES</h3>
-            <p>Estufa Records<br>Tantsa<br>Letrux (RMX)</p>
-        </div>
-        <div class="cred-item">
-            <h3>SOUNDSCAPE</h3>
-            <p>Detroit, Euro, Trance & Breaks.</p>
-        </div>
-    </section>
-
-    <div class="section-title">Visual_Feed // Live_Action</div>
-    <section style="display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border);">
-        <!-- 🔴 VIDEOS DO YOUTUBE (TROQUE O CÓDIGO FINAL DO LINK) -->
-        <div style="flex: 1 1 400px; height: 350px;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/SEU_VIDEO_1" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div style="flex: 1 1 400px; height: 350px;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/SEU_VIDEO_2" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </section>
-
-    <div class="section-title" id="lab">Audio_Data // Discography</div>
-    <section class="discog-grid">
-        <!-- 🔴 CAPAS DOS ALBUNS (Suba no GitHub e coloque o nome do arquivo aqui) -->
-        <!-- Exemplo: <img src="capa-album1.jpg"> -->
-        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=ESTUFA+REC" alt="Capa 1"></div>
-        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=TANTSA" alt="Capa 2"></div>
-        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=LETRUX" alt="Capa 3"></div>
-        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=SINGLE" alt="Capa 4"></div>
-        <div class="discog-item"><img src="https://via.placeholder.com/200/000000/00ff41?text=EP+02" alt="Capa 5"></div>
-    </section>
-
-    <section class="audio-container">
-        <!-- 🔴 SOUNDCLOUD EMBED -->
-        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%2300ff41&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-    </section>
-
-    <div class="section-title" id="transmissao">Press_Log // Mídia</div>
-    <section class="press-list">
-        <ul>
-            <li><span style="color:var(--accent)">[MIXMAG]</span> <a href="#" target="_blank">"Ousadia sonora e sets inusitados: conheça noizzed"</a></li>
-            <li><span style="color:var(--accent)">[HOUSE MAG]</span> <a href="#" target="_blank">"Uma mulher à frente de sua própria estufa"</a></li>
-            <li><span style="color:var(--accent)">[D-EDGE]</span> <a href="#" target="_blank">"Entrevista exclusiva sobre live performance"</a></li>
-        </ul>
-    </section>
-
-    <section class="contact" id="booking">
-        <p style="margin-bottom: 2.5rem; letter-spacing: 5px; opacity: 0.7;">INICIAR PROTOCOLO DE CONTRATAÇÃO</p>
-        <a href="mailto:contato@noizzed.xyz" class="btn">BOOKING_NOW</a>
-    </section>
-
-    <div class="section-title">Visual_Archive // Galeria</div>
-    <section class="visual-archive">
-        <div class="carousel-wrapper">
-            <div class="carousel-track" id="track">
-                <!-- 🔴 FOTOS DA GALERIA (Suba no GitHub e coloque o nome aqui) -->
-                <div class="slide"><img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb1?q=80&w=2070" alt="Foto 1"></div>
-                <div class="slide"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070" alt="Foto 2"></div>
-                <div class="slide"><img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070" alt="Foto 3"></div>
-            </div>
-        </div>
-        <div class="carousel-nav">
-            <button class="nav-btn" onclick="moveSlide(-1)"> < </button>
-            <button class="nav-btn" onclick="moveSlide(1)"> > </button>
-        </div>
-    </section>	
-
-    <footer>
-        NOIZZED // ALL RIGHTS RESERVED // STO-BRAZIL-2026 // PROTOCOL_V.4.0
-    </footer>
-
-    <!-- SCRIPT DA MÁGICA DO LOGO -->
-    <script>
-        // Lógica do Scroll
-        window.addEventListener('scroll', function() {
-            const logo = document.getElementById('dynamic-logo');
-            if (window.scrollY > 50) {
-                // Quando desce a tela
-                logo.innerText = 'noizzed';
-                logo.classList.add('active');
-            } else {
-                // Quando está no topo
-                logo.innerText = 'não é barulho';
-                logo.classList.remove('active');
-            }
-        });
-
-        // Lógica do Carrossel
-        let currentIndex = 0;
-        const track = document.getElementById('track');
-        const slides = document.querySelectorAll('.slide');
-
-        function moveSlide(direction) {
-            currentIndex += direction;
-            if (currentIndex < 0) currentIndex = slides.length - 1;
-            if (currentIndex >= slides.length) currentIndex = 0;
-            const offset = currentIndex * -100;
-            track.style.transform = `translateX(${offset}%)`;
-        }
-    </script>
+  </div>
 </body>
 </html>
-
