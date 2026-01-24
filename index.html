@@ -3,10 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>noizzed | producer</title>
+    
+    <!-- SEO & METADATA -->
+    <title>noizzed | DJ & Music Producer</title>
+    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records e fundadora do coletivo TPM. House, Techno, Breaks e experimentações.">
+    <meta name="keywords" content="Noizzed, DJ, Produtora Musical, Techno, House Music, Estufa Records, TPM, Música Eletrônica, Brasil, Artist, Producer">
+    <meta name="author" content="Noizzed">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://noizzed.xyz">
+
+    <!-- OPEN GRAPH (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://noizzed.xyz">
+    <meta property="og:title" content="noizzed | DJ & Producer">
+    <meta property="og:description" content="Pista é território. Cabine é laboratório. Conheça o trabalho de Noizzed.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png">
+
+    <!-- SCHEMA.ORG JSON-LD (Google Knowledge Graph) -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "MusicGroup",
+      "name": "Noizzed",
+      "url": "https://noizzed.xyz",
+      "logo": "https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png",
+      "sameAs": [
+        "https://www.instagram.com/noizzed",
+        "https://soundcloud.com/noizzedofficial",
+        "https://open.spotify.com/intl-pt/artist/7vSGEXj9XMFjtgTHkTKySH",
+        "https://www.youtube.com/@noizzedofficial"
+      ],
+      "description": "Produtora, DJ e investigadora sonora. CEO da Estufa Records."
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg: #000000;
@@ -142,6 +176,14 @@
         }
         .btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); box-shadow: 0 0 30px rgba(0, 255, 65, 0.4); }
 
+        .email-link {
+            display: block; margin-top: 2rem;
+            color: #888; text-decoration: none; 
+            font-size: 1.5rem; transition: 0.3s;
+            font-weight: bold; letter-spacing: 1px;
+        }
+        .email-link:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
         /* GALLERY */
         .visual-archive { background: #000; border-bottom: var(--border); position: relative; }
         .carousel-wrapper { overflow: hidden; position: relative; width: 100%; }
@@ -165,6 +207,7 @@
             nav { flex-wrap: wrap; justify-content: center; }
             .slide { height: 350px; }
             .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; }
+            .email-link { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -251,31 +294,30 @@
     <section style="display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border);">
         <!-- 🔴 VIDEOS DO YOUTUBE -->
         <div style="flex: 1 1 500px; height: 400px;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/FUv5cd7JwHY?si=QazUw5k6TJf86j85" frameborder="0" allowfullscreen></iframe>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/FUv5cd7JwHY?si=QazUw5k6TJf86j85" frameborder="0" allowfullscreen title="Noizzed Live Set"></iframe>
         </div>
         <div style="flex: 1 1 500px; height: 400px;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Gj9F40CQsp0?si=SN12j1UJKC5SW-Ke" frameborder="0" allowfullscreen></iframe>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Gj9F40CQsp0?si=SN12j1UJKC5SW-Ke" frameborder="0" allowfullscreen title="Noizzed Performance"></iframe>
         </div>
     </section>
 
     <div class="section-title" id="lab">Audio_Data // Discography</div>
     <section class="discog-grid">
-        <!-- 🔴 CAPAS DOS ALBUNS -->
-        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(1).png?raw=true" alt="Capa 1"></div>
-        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(2).png?raw=true" alt="Capa 2"></div>
-        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(3).png?raw=true" alt="Capa 3"></div>
-        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(4).png?raw=true" alt="Capa 4"></div>
-    <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(5).png?raw=true" alt="Capa 5"></div>
-  <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(6).png?raw=true" alt="Capa 6"></div>
-  <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(7).png?raw=true" alt="Capa 7"></div>
-  <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(8).jpg?raw=true" alt="Capa 8"></div>
-      <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(9).png?raw=true" alt="Capa 9"></div>
-
+        <!-- 🔴 CAPAS DOS ALBUNS (Atualizei os ALTs para SEO) -->
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(1).png?raw=true" alt="Noizzed Album Cover 1"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(2).png?raw=true" alt="Noizzed Album Cover 2"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(3).png?raw=true" alt="Noizzed Album Cover 3"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(4).png?raw=true" alt="Noizzed Album Cover 4"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(5).png?raw=true" alt="Noizzed Album Cover 5"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(6).png?raw=true" alt="Noizzed Album Cover 6"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(7).png?raw=true" alt="Noizzed Album Cover 7"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(8).jpg?raw=true" alt="Noizzed Album Cover 8"></div>
+        <div class="discog-item"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(9).png?raw=true" alt="Noizzed Album Cover 9"></div>
     </section>
 
     <section class="audio-container">
         <!-- 🔴 SOUNDCLOUD -->
- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
     </section>
 
     <div class="section-title" id="transmissao">Press_Log // Mídia</div>
@@ -290,6 +332,11 @@
     <section class="contact" id="booking">
         <p style="margin-bottom: 2.5rem; letter-spacing: 5px; opacity: 0.7; font-size: 1.2rem;">INICIAR PROTOCOLO DE CONTRATAÇÃO</p>
         <a href="mailto:fala@noizzed.xyz" class="btn">BOOKING_NOW</a>
+        
+        <!-- EMAIL ADICIONADO AQUI -->
+        <a href="mailto:fala@noizzed.xyz" class="email-link">
+            [ fala@noizzed.xyz ]
+        </a>
     </section>
 
     <div class="section-title">Visual_Archive // Galeria</div>
@@ -297,10 +344,10 @@
         <div class="carousel-wrapper">
             <div class="carousel-track" id="track">
                 <!-- 🔴 FOTOS DA GALERIA -->
-                <div class="slide"><img src="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png" alt="Foto 1"></div>
-                <div class="slide"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(26).png?raw=true" alt="Foto 2"></div>
-                <div class="slide"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(25).jpg?raw=true" alt="Foto 3"></div>  <div class="slide"><img src="
-              https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed.jpg?raw=true" alt="Foto 4"></div>
+                <div class="slide"><img src="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png" alt="Noizzed Profile Photo"></div>
+                <div class="slide"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(26).png?raw=true" alt="Noizzed Live Gig 1"></div>
+                <div class="slide"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(25).jpg?raw=true" alt="Noizzed Live Gig 2"></div>  
+                <div class="slide"><img src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed.jpg?raw=true" alt="Noizzed Press Photo"></div>
             </div>
         </div>
         <div class="carousel-nav">
