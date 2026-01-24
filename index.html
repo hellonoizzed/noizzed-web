@@ -6,7 +6,7 @@
     
     <!-- SEO & METADATA -->
     <title>noizzed | DJ & Music Producer</title>
-    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records. House, Techno e experimentações.">
+    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records. Techno, House e Breaks.">
     <meta name="theme-color" content="#000000">
     <link rel="canonical" href="https://noizzed.xyz">
 
@@ -16,7 +16,7 @@
     <meta property="og:title" content="noizzed | DJ & Producer">
     <meta property="og:image" content="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png">
 
-    <!-- PRELOAD FONTS (Prioridade Alta) -->
+    <!-- PRELOAD FONTS & CRITICAL CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -29,45 +29,50 @@
             --border: 1px solid #333;
         }
 
-        /* Reset & Base */
+        /* Otimização de Renderização */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-
+        
         body {
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Space Mono', monospace;
             line-height: 1.2;
             overflow-x: hidden;
-            /* Melhora performance de rolagem */
-            text-rendering: optimizeSpeed; 
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Scanline Otimizado para Mobile (GPU) */
-        body::before {
+        /* SCANLINE V2 - Otimizado para Desktop (Menos CPU) */
+        body::after {
             content: " ";
             display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 1000; background-size: 100% 4px, 3px 100%; pointer-events: none;
-            /* Força aceleração de hardware */
-            transform: translateZ(0); 
-            will-change: transform;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.2)
+            );
+            background-size: 100% 4px;
+            z-index: 1000; pointer-events: none;
+            /* Força GPU */
+            transform: translateZ(0);
+            opacity: 0.6;
         }
 
-        /* HEADER */
+        /* HEADER FIXO */
         header {
             padding: 1.5rem 2rem; border-bottom: var(--border); display: flex;
             justify-content: space-between; align-items: center;
             position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 999;
             backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-            transition: transform 0.3s;
-            will-change: transform;
+            height: 80px; /* Altura fixa para evitar CLS */
         }
 
         .logo { 
             font-size: 1rem; font-weight: 400; color: #666; 
-            transition: 0.3s; cursor: default; letter-spacing: 1px;
+            transition: 0.3s; cursor: default; letter-spacing: 1px; white-space: nowrap;
         }
         
         .logo.active {
@@ -87,7 +92,6 @@
         .platforms-nav {
             display: flex; padding: 10px 2rem; border-bottom: var(--border);
             gap: 25px; background: #080808; overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Scroll suave no iOS */
         }
         .platforms-nav a { 
             color: #888; text-decoration: none; font-size: 11px; 
@@ -100,15 +104,15 @@
             padding: 1.5rem 2rem; background: #fff; color: #000;
             font-weight: bold; text-transform: uppercase; letter-spacing: 3px; font-size: 1.2rem;
             border-bottom: var(--border); margin-top: 0;
-            /* Content Visibility para performance */
             content-visibility: auto; contain-intrinsic-size: 60px;
         }
 
-        /* HERO */
+        /* HERO AREA */
         .hero {
             padding: 6rem 2rem; border-bottom: var(--border);
             min-height: 80vh; display: flex; flex-direction: column; justify-content: center;
-            content-visibility: auto;
+            /* Melhora renderização de texto grande */
+            will-change: transform;
         }
 
         h1 { 
@@ -127,7 +131,7 @@
         /* MANIFESTO */
         .manifesto { 
             display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border);
-            content-visibility: auto; contain-intrinsic-size: 400px;
+            content-visibility: auto;
         }
         .manifesto-box { padding: 5rem 3rem; border-right: var(--border); font-size: 1.4rem; text-transform: uppercase; line-height: 1.4; }
         .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
@@ -141,20 +145,32 @@
         .cred-item h3 { color: var(--accent); margin-bottom: 1.5rem; font-size: 1rem; letter-spacing: 2px; }
         .cred-item p { font-size: 1.3rem; }
 
-        /* VIDEO AREA */
+        /* LITE YOUTUBE FACADE (Otimização Extrema) */
         .video-container { display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border); content-visibility: auto; }
-        .video-wrapper { flex: 1 1 500px; height: 400px; position: relative; }
-        .video-wrapper iframe { position: absolute; top:0; left:0; width: 100%; height: 100%; }
+        .video-wrapper { 
+            flex: 1 1 500px; height: 400px; position: relative; 
+            background: #000; cursor: pointer; overflow: hidden;
+        }
+        .video-placeholder {
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s;
+        }
+        .video-wrapper:hover .video-placeholder { opacity: 1; }
+        .play-btn {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 70px; height: 70px; background: rgba(0,255,65,0.8); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 30px; color: #000;
+            pointer-events: none; border: 2px solid #fff;
+        }
 
         /* DISCOGRAPHY */
         .audio-container { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; content-visibility: auto; }
         
         .discog-grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
             gap: 20px; padding: 3rem; border-bottom: var(--border);
-            content-visibility: auto; contain-intrinsic-size: 500px;
+            content-visibility: auto;
         }
-        .discog-item { aspect-ratio: 1 / 1; background: #111; overflow: hidden; }
+        .discog-item { aspect-ratio: 1 / 1; background: #111; position: relative; }
         .discog-item img { 
             width: 100%; height: 100%; object-fit: cover; 
             border: 1px solid #333; transition: transform 0.2s, filter 0.2s; 
@@ -199,12 +215,11 @@
             .slogan { font-size: 1.5rem; }
             .manifesto { grid-template-columns: 1fr; }
             .manifesto-box { border-right: none; border-bottom: var(--border); padding: 3rem 1.5rem; }
-            header { flex-direction: column; gap: 15px; text-align: center; }
+            header { flex-direction: column; gap: 15px; height: auto; padding-bottom: 1.5rem; }
             nav { flex-wrap: wrap; justify-content: center; }
             .slide { height: 350px; }
             .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; }
             .email-link { font-size: 1.1rem; }
-            .press-list a { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -255,19 +270,22 @@
     </section>
 
     <div class="section-title">Visual_Feed // Live_Action</div>
-    <!-- VIDEO LAZY LOADING -->
+    <!-- LITE YOUTUBE: CLIQUE PARA CARREGAR -->
     <section class="video-container">
-        <div class="video-wrapper">
-            <iframe loading="lazy" width="100%" height="100%" src="https://www.youtube.com/embed/FUv5cd7JwHY?si=QazUw5k6TJf86j85" frameborder="0" allowfullscreen title="Noizzed Live Set"></iframe>
+        <!-- VIDEO 1 -->
+        <div class="video-wrapper" onclick="loadVideo(this, 'FUv5cd7JwHY')">
+            <img class="video-placeholder" src="https://img.youtube.com/vi/FUv5cd7JwHY/maxresdefault.jpg" alt="Noizzed Set" loading="lazy">
+            <div class="play-btn">▶</div>
         </div>
-        <div class="video-wrapper">
-            <iframe loading="lazy" width="100%" height="100%" src="https://www.youtube.com/embed/Gj9F40CQsp0?si=SN12j1UJKC5SW-Ke" frameborder="0" allowfullscreen title="Noizzed Performance"></iframe>
+        <!-- VIDEO 2 -->
+        <div class="video-wrapper" onclick="loadVideo(this, 'Gj9F40CQsp0')">
+            <img class="video-placeholder" src="https://img.youtube.com/vi/Gj9F40CQsp0/maxresdefault.jpg" alt="Noizzed Performance" loading="lazy">
+            <div class="play-btn">▶</div>
         </div>
     </section>
 
     <div class="section-title" id="lab">Audio_Data // Discography</div>
     <section class="discog-grid">
-        <!-- IMAGENS LAZY LOADING + ASPECT RATIO -->
         <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(1).png?raw=true" alt="Album 1"></div>
         <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(2).png?raw=true" alt="Album 2"></div>
         <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(3).png?raw=true" alt="Album 3"></div>
@@ -303,7 +321,6 @@
     <section class="visual-archive">
         <div class="carousel-wrapper">
             <div class="carousel-track" id="track">
-                <!-- CAROUSEL LAZY -->
                 <div class="slide"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png" alt="Profile"></div>
                 <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(26).png?raw=true" alt="Gig 1"></div>
                 <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(25).jpg?raw=true" alt="Gig 2"></div>  
@@ -321,21 +338,30 @@
     </footer>
 
     <script>
-        // Mágica do Logo
+        // SCRIPT ULTRA-LEVE PARA CARREGAR YOUTUBE SÓ NO CLICK
+        function loadVideo(element, videoId) {
+            element.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+
+        // Mágica do Logo (Debounced para performance)
         const logo = document.getElementById('dynamic-logo');
+        let ticking = false;
+        
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 80) {
-                if (logo.innerText !== 'noizzed') {
-                    logo.innerText = 'noizzed';
-                    logo.classList.add('active');
-                }
-            } else {
-                if (logo.innerText !== 'não é barulho') {
-                    logo.innerText = 'não é barulho';
-                    logo.classList.remove('active');
-                }
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    if (window.scrollY > 80) {
+                        logo.innerText = 'noizzed';
+                        logo.classList.add('active');
+                    } else {
+                        logo.innerText = 'não é barulho';
+                        logo.classList.remove('active');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
-        }, { passive: true }); // Passive melhora performance de scroll
+        }, { passive: true });
 
         // Carrossel
         let currentIndex = 0;
@@ -347,7 +373,7 @@
             if (currentIndex < 0) currentIndex = slides.length - 1;
             if (currentIndex >= slides.length) currentIndex = 0;
             const offset = currentIndex * -100;
-            track.style.transform = `translate3d(${offset}%, 0, 0)`; // Usar translate3d ativa GPU
+            track.style.transform = `translate3d(${offset}%, 0, 0)`;
         }
     </script>
 </body>
