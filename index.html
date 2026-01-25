@@ -108,17 +108,41 @@
         }
 
         /* HERO AREA */
-        .hero {
-            padding: 6rem 2rem; border-bottom: var(--border);
-            min-height: 80vh; display: flex; flex-direction: column; justify-content: center;
-            /* Melhora renderização de texto grande */
-            will-change: transform;
-        }
+     /* HERO COM FOTO DE FUNDO ESTILO HACKER */
+.hero {
+    padding: 6rem 2rem;
+    border-bottom: var(--border);
+    min-height: 90vh; /* Ocupa a tela toda */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    
+    /* A MÁGICA ACONTECE AQUI */
+    /* 1. O Gradiente preto deixa a foto escura para o texto ler */
+    /* 2. A URL puxa sua foto */
+    background-image: 
+        linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
+        url('https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png');
+    
+    background-size: cover;       /* Cobre tudo */
+    background-position: center;  /* Centraliza seu rosto */
+    background-attachment: fixed; /* Efeito Parallax (foto parada ao rolar) */
+    background-repeat: no-repeat;
+}
 
-        h1 { 
-            font-size: 18vw; line-height: 0.8; text-transform: lowercase; 
-            margin-bottom: 30px; color: #fff; letter-spacing: -5px; word-break: break-all;
-        }
+/* Ajuste no texto para garantir leitura sobre a foto */
+h1 { 
+    font-size: 18vw; 
+    line-height: 0.8; 
+    text-transform: lowercase; 
+    margin-bottom: 30px; 
+    color: #fff; 
+    letter-spacing: -5px; 
+    word-break: break-all;
+    text-shadow: 0 0 20px rgba(0,0,0,0.8); /* Sombra para destacar do fundo */
+    z-index: 2;
+}
         
         .slogan {
             font-size: 2rem; color: var(--accent); margin-top: 20px;
@@ -380,5 +404,6 @@
     </script>
 </body>
 </html>
+
 
 
