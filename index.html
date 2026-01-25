@@ -6,19 +6,17 @@
     
     <!-- SEO & METADATA -->
     <title>noizzed | DJ & Music Producer</title>
-    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records. Techno, House e Breaks.">
-    <meta name="keywords" content="Noizzed, DJ, Techno, House, Brasil, Estufa Records, Producer, Electronic Music">
+    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records. Detroit, Techno, House e Breaks.">
     <meta name="theme-color" content="#000000">
     <link rel="canonical" href="https://noizzed.xyz">
 
-    <!-- OPEN GRAPH (Para ficar bonito no WhatsApp/Insta) -->
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://noizzed.xyz">
     <meta property="og:title" content="noizzed | DJ & Producer">
-    <meta property="og:description" content="Pista é território. Cabine é laboratório.">
-    <meta property="og:image" content="https://github.com/hellonoizzed/noizzed-web/blob/main/dedge.jpg?raw=true">
+    <meta property="og:image" content="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png">
 
-    <!-- FONTES & CSS CRÍTICO -->
+    <!-- PRELOAD FONTS & CRITICAL CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -27,11 +25,11 @@
         :root {
             --bg: #000000;
             --text: #ffffff;
-            --accent: #00ff41; /* Verde Hacker */
+            --accent: #00ff41;
             --border: 1px solid #333;
         }
 
-        /* Reset & Otimização */
+        /* Otimização de Renderização */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
@@ -45,17 +43,35 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* SCANLINE V2 - Otimizado para Desktop (Menos CPU) */
+        body::after {
+            content: " ";
+            display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.2)
+            );
+            background-size: 100% 4px;
+            z-index: 1000; pointer-events: none;
+            /* Força GPU */
+            transform: translateZ(0);
+            opacity: 0.6;
+        }
+
         /* HEADER FIXO */
         header {
             padding: 1.5rem 2rem; border-bottom: var(--border); display: flex;
             justify-content: space-between; align-items: center;
-            position: sticky; top: 0; background: rgba(0,0,0,0.85); z-index: 999;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            height: 80px; will-change: transform;
+            position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 999;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            height: 80px; /* Altura fixa para evitar CLS */
         }
 
         .logo { 
-            font-size: 1rem; font-weight: 400; color: #888; 
+            font-size: 1rem; font-weight: 400; color: #666; 
             transition: 0.3s; cursor: default; letter-spacing: 1px; white-space: nowrap;
         }
         
@@ -69,15 +85,13 @@
             color: var(--text); text-decoration: none;
             font-size: 0.9rem; border: 1px solid transparent; padding: 5px 10px;
             text-transform: uppercase; transition: 0.2s;
-            text-shadow: 0 0 5px rgba(0,0,0,0.8);
         }
         nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
 
-        /* PLATFORMS NAV (LINKS DO TOPO) */
+        /* PLATFORMS NAV */
         .platforms-nav {
             display: flex; padding: 10px 2rem; border-bottom: var(--border);
             gap: 25px; background: #080808; overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
         .platforms-nav a { 
             color: #888; text-decoration: none; font-size: 11px; 
@@ -93,85 +107,58 @@
             content-visibility: auto; contain-intrinsic-size: 60px;
         }
 
-        /* --- HERO SECTION (A PARTE DA FOTO) --- */
-        .hero {
-            padding: 6rem 2rem;
-            border-bottom: var(--border);
-            min-height: 95vh; /* Ocupa a tela quase toda */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            
-            /* Fundo preto de segurança */
-            background-color: #000;
-            
-            /* IMAGEM E GRADIENTE */
-            background-image: 
-                linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,1) 100%),
-                url('https://github.com/hellonoizzed/noizzed-web/blob/main/dedge.jpg?raw=true');
-            
-            background-size: cover;       
-            background-position: center top;
-            background-repeat: no-repeat;
-            
-            /* Efeito Parallax no Desktop */
-            background-attachment: fixed;
-            
-            /* Filtro P&B Automático */
-            background-blend-mode: saturation;
-        }
+        /* HERO AREA */
+     /* HERO COM FOTO DE FUNDO ESTILO HACKER */
+.hero {
+    padding: 6rem 2rem;
+    border-bottom: var(--border);
+    min-height: 90vh; /* Ocupa a tela toda */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    
+    /* A MÁGICA ACONTECE AQUI */
+    /* 1. O Gradiente preto deixa a foto escura para o texto ler */
+    /* 2. A URL puxa sua foto */
+    background-image: 
+        linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
+        url('https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png');
+    
+    background-size: cover;       /* Cobre tudo */
+    background-position: center;  /* Centraliza seu rosto */
+    background-attachment: fixed; /* Efeito Parallax (foto parada ao rolar) */
+    background-repeat: no-repeat;
+}
 
-        /* CORREÇÃO PARA CELULAR (IMPORTANTE) */
-        @media (max-width: 850px) {
-            .hero { 
-                /* No celular, "fixed" costuma dar bug e esconder a foto. 
-                   "scroll" resolve o problema */
-                background-attachment: scroll; 
-                background-position: center center;
-            }
-            
-            h1 { font-size: 20vw; }
-            .hero { padding: 4rem 1.5rem; }
-            header { flex-direction: column; gap: 15px; height: auto; padding-bottom: 1.5rem; }
-            nav { flex-wrap: wrap; justify-content: center; }
-        }
-
-        /* TIPOGRAFIA HERO */
-        h1 { 
-            font-size: 18vw; 
-            line-height: 0.8; 
-            text-transform: lowercase; 
-            margin-bottom: 30px; 
-            color: #fff; 
-            letter-spacing: -5px; 
-            word-break: break-all;
-            /* Sombra para ler em cima da foto */
-            text-shadow: 0 10px 30px rgba(0,0,0,0.9);
-            z-index: 2;
-        }
+/* Ajuste no texto para garantir leitura sobre a foto */
+h1 { 
+    font-size: 18vw; 
+    line-height: 0.8; 
+    text-transform: lowercase; 
+    margin-bottom: 30px; 
+    color: #fff; 
+    letter-spacing: -5px; 
+    word-break: break-all;
+    text-shadow: 0 0 20px rgba(0,0,0,0.8); /* Sombra para destacar do fundo */
+    z-index: 2;
+}
         
         .slogan {
             font-size: 2rem; color: var(--accent); margin-top: 20px;
             border-left: 4px solid var(--accent); padding-left: 20px;
             line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; max-width: 800px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-            background: linear-gradient(90deg, rgba(0,0,0,0.6), transparent);
         }
         
-        .tech-text { 
-            font-size: 1.2rem; color: #ccc; margin-top: 20px; max-width: 600px;
-            text-shadow: 0 1px 5px rgba(0,0,0,1); 
-        }
+        .tech-text { font-size: 1.2rem; color: #888; margin-top: 20px; max-width: 600px; }
 
         /* MANIFESTO */
         .manifesto { 
             display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border);
-            content-visibility: auto; background: #000;
+            content-visibility: auto;
         }
         .manifesto-box { padding: 5rem 3rem; border-right: var(--border); font-size: 1.4rem; text-transform: uppercase; line-height: 1.4; }
         .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
-        @media (max-width: 850px) { .manifesto { grid-template-columns: 1fr; } .manifesto-box { border-right: none; border-bottom: var(--border); } }
 
         /* CREDENTIALS */
         .credentials { 
@@ -182,7 +169,7 @@
         .cred-item h3 { color: var(--accent); margin-bottom: 1.5rem; font-size: 1rem; letter-spacing: 2px; }
         .cred-item p { font-size: 1.3rem; }
 
-        /* VIDEO AREA (LITE YOUTUBE) */
+        /* LITE YOUTUBE FACADE (Otimização Extrema) */
         .video-container { display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border); content-visibility: auto; }
         .video-wrapper { 
             flex: 1 1 500px; height: 400px; position: relative; 
@@ -201,6 +188,7 @@
 
         /* DISCOGRAPHY */
         .audio-container { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; content-visibility: auto; }
+        
         .discog-grid { 
             display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
             gap: 20px; padding: 3rem; border-bottom: var(--border);
@@ -214,12 +202,10 @@
         }
         .discog-item img:hover { filter: grayscale(0%); border-color: var(--accent); transform: scale(1.02); }
 
-        /* PRESS LIST */
         .press-list { padding: 3rem; border-bottom: var(--border); content-visibility: auto; }
         .press-list li { list-style: none; margin-bottom: 2rem; border-bottom: 1px dashed #333; padding-bottom: 15px; }
         .press-list a { color: var(--text); text-decoration: none; font-size: 1.5rem; }
         .press-list a:hover { color: var(--accent); }
-        @media (max-width: 850px) { .press-list a { font-size: 1.1rem; } }
 
         /* CONTACT */
         .contact { padding: 8rem 2rem; text-align: center; border-bottom: var(--border); content-visibility: auto; }
@@ -229,32 +215,40 @@
             transition: 0.2s; text-transform: uppercase;
         }
         .btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); box-shadow: 0 0 30px rgba(0, 255, 65, 0.4); }
-        @media (max-width: 850px) { .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; } }
 
         .email-link {
             display: block; margin-top: 2rem; color: #888; text-decoration: none; 
             font-size: 1.5rem; transition: 0.2s; font-weight: bold; letter-spacing: 1px;
         }
-        .email-link:hover { color: #fff; }
 
         /* GALLERY */
         .visual-archive { background: #000; border-bottom: var(--border); position: relative; content-visibility: auto; }
         .carousel-wrapper { overflow: hidden; position: relative; width: 100%; }
         .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); will-change: transform; }
         .slide { min-width: 100%; height: 600px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        @media (max-width: 850px) { .slide { height: 350px; } }
         .slide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
         
         .carousel-nav { position: absolute; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
         .nav-btn { background: #000; color: #fff; border: 1px solid #fff; padding: 20px 30px; cursor: pointer; font-family: 'Space Mono'; font-weight: bold; }
-        .nav-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
         
         footer { padding: 4rem 2rem; text-align: center; font-size: 0.9rem; opacity: 0.5; border-top: var(--border); content-visibility: auto; }
+
+        @media (max-width: 850px) {
+            h1 { font-size: 22vw; }
+            .hero { padding: 4rem 1rem; min-height: auto; }
+            .slogan { font-size: 1.5rem; }
+            .manifesto { grid-template-columns: 1fr; }
+            .manifesto-box { border-right: none; border-bottom: var(--border); padding: 3rem 1.5rem; }
+            header { flex-direction: column; gap: 15px; height: auto; padding-bottom: 1.5rem; }
+            nav { flex-wrap: wrap; justify-content: center; }
+            .slide { height: 350px; }
+            .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; }
+            .email-link { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- WHATSAPP FLOAT -->
     <a href="https://wa.me/5548998144025?text=Ola%20vim%20pelo%20site" aria-label="Whatsapp" target="_blank" style="position: fixed; bottom: 30px; right: 30px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2.5rem; text-decoration: none; z-index: 9999; border: 3px solid #000; box-shadow: 0 0 15px rgba(0,0,0,0.8);">💬</a>
 
     <header>
@@ -277,24 +271,13 @@
         <a href="https://instagram.com/noizzed" target="_blank" rel="noopener">instagram</a>
     </div>
 
-    <!-- HERO SECTION -->
     <section class="hero">
         <h1>noizzed</h1>
-        
-        <p class="slogan">
-         Produtora, DJ <br>e investigadora sonora
-        </p>
-        
-        <p class="tech-text">
-            [ Pista é território. 
-            Cabine é laboratório.]
-        </p>
-        
+        <p class="slogan">Produtora, DJ <br>e investigadora sonora</p>
+        <p class="tech-text">[ Pista é território. Cabine é laboratório.]</p>
         <div style="margin-top: 4rem;">
-            <p style="font-size: 0.8rem; margin-bottom: 10px; color: #fff; letter-spacing: 3px; text-shadow: 0 1px 3px #000;">PROMOTER_AREA</p>
-            <a href="https://drive.google.com/drive/folders/1zIwZI_msd0OCUGgvcaLjQyAztO4OgmlA?usp=drive_link" target="_blank" style="background: var(--accent); color: #000; padding: 15px 30px; text-decoration: none; font-weight: bold; font-size: 1rem; display: inline-block; box-shadow: 0 0 15px rgba(0,0,0,0.8);">
-                DOWNLOAD PRESS KIT
-            </a>
+            <p style="font-size: 0.8rem; margin-bottom: 10px; color: #666; letter-spacing: 3px;">PROMOTER_AREA</p>
+            <a href="https://drive.google.com/drive/folders/1zIwZI_msd0OCUGgvcaLjQyAztO4OgmlA?usp=drive_link" target="_blank" style="background: var(--accent); color: #000; padding: 15px 30px; text-decoration: none; font-weight: bold; font-size: 1rem; display: inline-block;">DOWNLOAD PRESS KIT</a>
         </div>
     </section>
 
@@ -311,12 +294,14 @@
     </section>
 
     <div class="section-title">Visual_Feed // Live_Action</div>
-    <!-- LITE YOUTUBE -->
+    <!-- LITE YOUTUBE: CLIQUE PARA CARREGAR -->
     <section class="video-container">
+        <!-- VIDEO 1 -->
         <div class="video-wrapper" onclick="loadVideo(this, 'FUv5cd7JwHY')">
             <img class="video-placeholder" src="https://img.youtube.com/vi/FUv5cd7JwHY/maxresdefault.jpg" alt="Noizzed Set" loading="lazy">
             <div class="play-btn">▶</div>
         </div>
+        <!-- VIDEO 2 -->
         <div class="video-wrapper" onclick="loadVideo(this, 'Gj9F40CQsp0')">
             <img class="video-placeholder" src="https://img.youtube.com/vi/Gj9F40CQsp0/maxresdefault.jpg" alt="Noizzed Performance" loading="lazy">
             <div class="play-btn">▶</div>
@@ -337,7 +322,7 @@
     </section>
 
     <section class="audio-container">
-        <!-- SOUNDCLOUD -->
+        <!-- SOUNDCLOUD LAZY -->
         <iframe loading="lazy" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
     </section>
 
@@ -379,12 +364,12 @@
     </footer>
 
     <script>
-        // SCRIPT OTIMIZADO DE VÍDEO E ANIMAÇÕES
+        // SCRIPT ULTRA-LEVE PARA CARREGAR YOUTUBE SÓ NO CLICK
         function loadVideo(element, videoId) {
             element.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
 
-        // Mágica do Logo
+        // Mágica do Logo (Debounced para performance)
         const logo = document.getElementById('dynamic-logo');
         let ticking = false;
         
@@ -419,3 +404,7 @@
     </script>
 </body>
 </html>
+
+
+
+
