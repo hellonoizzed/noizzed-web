@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noizzed | Research Lab</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #000000; --text: #ffffff; --accent: #00ff41; --border: 1px solid #333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; line-height: 1.4; overflow-x: hidden; }
+        
+        header { padding: 1.5rem 2rem; border-bottom: var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(0,0,0,0.9); z-index: 999; backdrop-filter: blur(10px); height: 80px; }
+        .logo { font-size: 1rem; color: #888; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
+        .logo:hover { color: #fff; }
+        nav { display: flex; gap: 20px; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; border: 1px solid transparent; padding: 5px 10px; text-transform: uppercase; }
+        nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
+
+        .section-title { padding: 1.5rem 2rem; background: #fff; color: #000; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; font-size: 1.1rem; border-bottom: var(--border); }
+
+        /* HERO DO LAB */
+        .lab-hero { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; }
+        .lab-hero h1 { font-size: 3rem; margin-bottom: 1rem; color: var(--accent); }
+        .lab-hero p { max-width: 600px; color: #888; font-size: 1.1rem; }
+
+        /* GRID DE PESQUISA */
+        .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); border-bottom: var(--border); }
+        .research-item { padding: 3rem 2rem; border-right: var(--border); border-bottom: var(--border); }
+        .research-item h3 { color: var(--accent); margin-bottom: 1rem; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px dashed #333; padding-bottom: 10px; display: inline-block; }
+        .research-item ul { list-style: none; padding-left: 0; }
+        .research-item li { font-size: 0.9rem; margin-bottom: 8px; color: #ccc; }
+        .research-item li::before { content: "> "; color: #666; }
+
+        /* BIO LOG */
+        .bio-log { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; display: flex; flex-wrap: wrap; gap: 4rem; }
+        .bio-text { flex: 2; min-width: 300px; font-size: 1.1rem; color: #ddd; text-align: justify; }
+        .bio-meta { flex: 1; min-width: 250px; border-left: 1px solid #333; padding-left: 2rem; display: flex; flex-direction: column; }
+        
+        /* EXTENSIONS (3 COLUNAS) */
+        .extensions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); border-bottom: var(--border); }
+        .ext-box { padding: 3rem; border-right: var(--border); border-bottom: var(--border); transition: 0.3s; cursor: pointer; text-decoration: none; color: #fff; display: block; }
+        .ext-box:hover { background: #111; }
+        .ext-box h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .ext-box p { color: #888; font-size: 0.9rem; margin-bottom: 1rem; }
+        .ext-tag { background: #fff; color: #000; padding: 2px 8px; font-size: 0.7rem; font-weight: bold; }
+        
+        .quote { font-style: italic; color: var(--accent); border-left: 2px solid var(--accent); padding-left: 15px; margin-top: 15px; opacity: 0.9; font-size: 0.95rem; }
+
+        footer { padding: 4rem 2rem; text-align: center; font-size: 0.9rem; opacity: 0.5; border-top: var(--border); }
+
+        @media (max-width: 850px) {
+            .bio-log, .extensions, .research-grid { display: block; }
+            .bio-meta { border-left: none; padding-left: 0; border-top: 1px dashed #333; padding-top: 2rem; margin-top: 2rem; }
+            .ext-box, .research-item { border-right: none; }
+            header { flex-direction: column; gap: 15px; height: auto; padding-bottom: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">< VOLTAR PARA O INÍCIO</a>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="https://noncenci.blogspot.com/">BLOG</a>
+        </nav>
+    </header>
+
+    <div class="lab-hero">
+        <h1>LAB // RESEARCH</h1>
+        <p>Área dedicada aos processos de pesquisa, desenvolvimento artístico e extensões do sistema Noizzed.</p>
+    </div>
+
+    <div class="section-title">Protocolos de Pesquisa // Research_Lines</div>
+    <section class="research-grid">
+        <div class="research-item">
+            <h3>01 // PISTA</h3>
+            <ul>
+                <li>DJ Sets como narrativa</li>
+                <li>Leitura de espaço e tempo</li>
+                <li>Música como experiência física</li>
+            </ul>
+        </div>
+        <div class="research-item">
+            <h3>02 // SOM</h3>
+            <ul>
+                <li>Produção Musical</li>
+                <li>Experimentação rítmica</li>
+                <li>Techno, Breaks & Texturas</li>
+            </ul>
+        </div>
+        <div class="research-item">
+            <h3>03 // PROCESSO</h3>
+            <ul>
+                <li>Ensino de música eletrônica</li>
+                <li>Processos criativos aplicados</li>
+                <li>Desenvolvimento de artistas</li>
+            </ul>
+        </div>
+        <div class="research-item">
+            <h3>04 // ESTRUTURA</h3>
+            <ul>
+                <li>Gestão de selos</li>
+                <li>Curadoria & Lançamentos</li>
+                <li>Ecossistemas sustentáveis</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="section-title">Data_Log // Fabi_Cenci</div>
+    <section class="bio-log">
+        <div class="bio-text">
+            <p style="margin-bottom: 1rem;"><strong>Fabi Cenci</strong> atua na música e na arte de forma não linear. Sua trajetória atravessa a pista, o estúdio, a sala de aula e a gestão cultural.</p>
+            <p>Já esteve à frente de diversas labels, criando catálogos e estratégias de circulação. Participou de programas de desenvolvimento artístico ligados ao <strong>British Council / ASA</strong>, ampliando seu repertório para além do circuito local.</p>
+            <p style="margin-top: 1rem;">Mantém diálogo constante com a música contemporânea, incluindo remixes para artistas como <strong>Letrux</strong> e conexões com a cena independente que pensa o som como linguagem.</p>
+        </div>
+        <div class="bio-meta">
+            <p style="color: #666; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 5px;">STATUS</p>
+            <p style="font-size: 1.2rem; color: var(--accent);">ATIVO / EM PESQUISA</p>
+            <br>
+            <p style="color: #666; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 5px;">CERTIFICATIONS</p>
+            <p>ASA OI FUTURO / BRITISH COUNCIL<br><span style="font-size: 0.8rem; color: #888;">(Equidade de Gênero e Liderança)</span></p>
+            <br>
+            <p style="color: #666; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 5px;">BASE</p>
+            <p>FLORIANÓPOLIS - BR / GLOBAL</p>
+        </div>
+    </section>
+
+    <div class="section-title">System_Extensions // Projetos</div>
+    <section class="extensions">
+        <!-- ESTUFA RECORDS -->
+        <a href="https://instagram.com/estufarecords" target="_blank" class="ext-box">
+            <span class="ext-tag">GRAVADORA // LAB</span>
+            <h2>ESTUFA</h2>
+            <p>Fundada em 2018, opera como extensão do laboratório. Cria estrutura para artistas fora da lógica industrial.</p>
+            <p>Atua em lançamentos, curadoria e desenvolvimento artístico, entendendo a música eletrônica como prática coletiva.</p>
+            <p style="color: var(--accent); font-size: 0.8rem;">[ RECONHECIDA PELO SEBRAE COMO STARTUP INOVADORA ]</p>
+        </a>
+
+        <!-- TPM - TODAS PELA MUSICA -->
+        <a href="#" class="ext-box">
+            <span class="ext-tag">COLETIVO // ATIVISMO</span>
+            <h2>TPM</h2>
+            <p>O selo TPM — Todas Pela Música nasce como espaço de valorização das mulheres na música, na arte e na vida.</p>
+            <p>Aborda temas como empoderamento, feminismo e discriminação, usando a cena como ferramenta de fortalecimento.</p>
+            <div class="quote">"Nosso ativismo pode ser cupim — corroer as estruturas de dentro."<br>- Florynce Kennedy</div>
+        </a>
+
+        <!-- NONCENCI -->
+        <a href="https://noncenci.blogspot.com/" target="_blank" class="ext-box" style="border-right: none;">
+            <span class="ext-tag">ESCRITA // PENSAMENTO</span>
+            <h2>NONCENCI</h2>
+            <p>Escrita por Fabi Cenci. Pesquisa a relação entre som, cérebro e comportamento, com foco em <strong>frequências neurais e seus efeitos</strong>.</p>
+            <p>Poesia e textos autorais. Colunista da revista europeia <strong>Meer</strong>.</p>
+        </a>
+    </section>
+
+    <footer>
+        NOIZZED // ARTIST LAB // 2026
+    </footer>
+
+</body>
+</html>
