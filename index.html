@@ -254,7 +254,7 @@
     <header>
         <div class="logo" id="dynamic-logo">não é barulho</div>
         <nav>
-            <a href="#lab">LABORATÓRIO</a>
+            <a href="#lab">LAB</a>
             <a href="#transmissao">PRESS</a>
             <a href="#booking">BOOKINGS</a>
             <a href="https://noncenci.blogspot.com/">BLOG</a>
@@ -319,20 +319,22 @@
         <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(9).png?raw=true" alt="Album" width="300" height="300"></div>
     </section>
 
-    <div id="sc-container">
-        <div class="soundcloud-facade" onclick="loadSoundCloud()">
-            <div class="sc-icon">☁️</div>
-            <div class="sc-text">CARREGAR PLAYER SOUNDCLOUD</div>
-            <div style="font-size: 0.8rem; margin-top: 10px; color: #444;">(Clique para ouvir)</div>
-        </div>
+
+    <section class="audio-container">
+        <!-- SOUNDCLOUD LAZY -->
+        <iframe loading="lazy" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+    </section>
+
     </div>
 
     <div class="section-title" id="transmissao">Press_Log // Mídia</div>
     <section class="press-list">
-        <ul>
+       <ul>
+            <li><span style="color:var(--accent)">[TANTSA MOKHA]</span> <a href="https://www.instagram.com/p/C_gpSpivO_p/?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">"Get to know Noizzed"</a></li>
             <li><span style="color:var(--accent)">[HOUSE MAG]</span> <a href="https://www.housemag.com.br/4611-ousadia-sonora-noizzed-e-capa-da-revista-house-mag-45/" target="_blank" rel="noopener">"Ousadia sonora e sets inusitados: conheça noizzed"</a></li>
             <li><span style="color:var(--accent)">[ELETROVIBEZ]</span> <a href="https://eletrovibez.com/mais-uma-mulher-a-frente-da-sua-propria-gravadora-conheca-a-hi-music-comandada-por-lari-hi/" target="_blank" rel="noopener">"Uma mulher à frente da sua própria gravadora"</a></li>
-            <li><span style="color:var(--accent)">[REMIX HYPNOTIZED]</span> <a href="https://siterg.uol.com.br/cultura/2019/07/21/letrux-lanca-em-noite-de-pistinha/" target="_blank" rel="noopener">"Letrux em noite de pistinha"</a></li>
+            <li><span style="color:var(--accent)">[REMIX HYPNOTIZED UOL]</span> <a href="https://siterg.uol.com.br/cultura/2019/07/21/letrux-lanca-em-noite-de-pistinha/" target="_blank" rel="noopener">"Letrux em noite de pistinha"</a></li>
+          <li><span style="color:var(--accent)">[ALATAJ _ TALKS]</span> <a href="https://alataj.com.br/alataj-talks/cenario-profissional-mais-igualitario-no-brasil" target="_blank" rel="noopener">"Como conquistar um cenário profissional mais igualitário no Brasil?"</a></li>  
         </ul>
     </section>
 
@@ -367,11 +369,6 @@
             element.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
 
-        function loadSoundCloud() {
-            const container = document.getElementById('sc-container');
-            container.innerHTML = `<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>`;
-        }
-
         const logo = document.getElementById('dynamic-logo');
         let ticking = false;
         window.addEventListener('scroll', function() {
@@ -403,3 +400,4 @@
     </script>
 </body>
 </html>
+
