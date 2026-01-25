@@ -6,7 +6,7 @@
     
     <!-- SEO & METADATA -->
     <title>noizzed | DJ & Music Producer</title>
-    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records.">
+    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records. House, Techno e Breaks.">
     <meta name="theme-color" content="#000000">
     <link rel="canonical" href="https://noizzed.xyz">
 
@@ -14,7 +14,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://noizzed.xyz">
     <meta property="og:title" content="noizzed | DJ & Producer">
-    <meta property="og:image" content="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/bcd57a1a66d4857f25fe126ca18ecfcd3b22223c/noizzedtopo2.jpg">
+    <meta property="og:image" content="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/7f2eacac7be1ebdbf2fba2c574717452c10b9dc2/noizzedtopo.jpg">
 
     <!-- CRITICAL CSS & FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,7 @@
             --border: 1px solid #333;
         }
 
+        /* Otimização de Renderização Mobile */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
@@ -41,25 +42,47 @@
             text-rendering: optimizeSpeed;
         }
 
+        /* SCANLINE - DESATIVADO NO MOBILE PARA PERFORMANCE */
+        @media (min-width: 769px) {
+            body::after {
+                content: " ";
+                display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+                background: repeating-linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0) 0px,
+                    rgba(0, 0, 0, 0) 2px,
+                    rgba(0, 0, 0, 0.1) 2px,
+                    rgba(0, 0, 0, 0.1) 4px
+                );
+                z-index: 1000; pointer-events: none;
+                transform: translateZ(0); /* GPU Force */
+            }
+        }
+
         /* HEADER */
         header {
             padding: 1.5rem 2rem; border-bottom: var(--border); display: flex;
             justify-content: space-between; align-items: center;
-            position: sticky; top: 0; background: rgba(0,0,0,0.9); z-index: 999;
-            backdrop-filter: blur(10px); height: 80px;
+            position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 999;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            height: 80px; will-change: transform;
         }
 
         .logo { 
-            font-size: 1rem; font-weight: 400; color: #888; 
-            transition: 0.3s; cursor: default; letter-spacing: 1px; white-space: nowrap;
+            font-size: 1rem; font-weight: 400; color: #aaa; 
+            transition: color 0.3s; cursor: default; letter-spacing: 1px; white-space: nowrap;
         }
-        .logo.active { font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -2px; text-shadow: 2px 0 var(--accent); }
+        
+        .logo.active {
+            font-size: 1.5rem; font-weight: 700; color: #fff; letter-spacing: -1px;
+            text-shadow: 2px 0 var(--accent);
+        }
 
         nav { display: flex; gap: 20px; }
         nav a {
-            color: var(--text); text-decoration: none; font-size: 0.9rem; 
-            border: 1px solid transparent; padding: 5px 10px; text-transform: uppercase; 
-            transition: 0.2s;
+            color: var(--text); text-decoration: none;
+            font-size: 0.9rem; border: 1px solid transparent; padding: 5px 10px;
+            text-transform: uppercase; transition: 0.2s;
         }
         nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
 
@@ -67,15 +90,22 @@
         .platforms-nav {
             display: flex; padding: 10px 2rem; border-bottom: var(--border);
             gap: 25px; background: #080808; overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         .platforms-nav a { 
             color: #888; text-decoration: none; font-size: 11px; 
             text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; font-weight: bold; 
             padding: 5px 0;
         }
-        .platforms-nav a:hover { color: var(--accent); text-decoration: underline; }
 
-      /* HERO COM FOTO DE FUNDO */
+        .section-title {
+            padding: 1.5rem 2rem; background: #fff; color: #000;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 3px; font-size: 1.2rem;
+            border-bottom: var(--border); margin-top: 0;
+            content-visibility: auto; contain-intrinsic-size: 60px;
+        }
+
+        /* HERO COM FOTO DE FUNDO */
         .hero {
             padding: 6rem 2rem; 
             border-bottom: var(--border);
@@ -102,32 +132,21 @@
             z-index: 2;
         }
         
-
-        h1 { 
-            font-size: 18vw; line-height: 0.8; text-transform: lowercase; 
-            margin-bottom: 30px; color: #fff; letter-spacing: -5px; word-break: break-all;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.9); z-index: 2;
-        }
-        
         .slogan {
-            font-size: 2rem; color: var(--accent); margin-top: 20px;
+            font-size: 1.8rem; color: var(--accent); margin-top: 20px;
             border-left: 4px solid var(--accent); padding-left: 20px;
             line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; max-width: 800px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-            background: linear-gradient(90deg, rgba(0,0,0,0.6), transparent);
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            z-index: 2;
         }
         
         .tech-text { 
-            font-size: 1.2rem; color: #ccc; margin-top: 20px; max-width: 600px;
-            text-shadow: 0 1px 5px rgba(0,0,0,1); 
+            font-size: 1.1rem; color: #ccc; margin-top: 20px; max-width: 600px; 
+            text-shadow: 0 0 10px rgba(0,0,0,0.8); z-index: 2;
         }
 
-        .section-title {
-            padding: 1.5rem 2rem; background: #fff; color: #000;
-            font-weight: bold; text-transform: uppercase; letter-spacing: 3px; font-size: 1.2rem;
-            border-bottom: var(--border); margin-top: 0;
-        }
-
+        /* PRESS KIT AREA */
+        .pk-area { margin-top: 3rem; z-index: 2; position: relative; }
         /* MANIFESTO */
         .manifesto { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); background: #000; }
         .manifesto-box { padding: 5rem 3rem; border-right: var(--border); font-size: 1.4rem; text-transform: uppercase; line-height: 1.4; }
@@ -266,7 +285,8 @@
             <li><span style="color:var(--accent)">[HOUSE MAG]</span> <a href="https://www.housemag.com.br/4611-ousadia-sonora-noizzed-e-capa-da-revista-house-mag-45/" target="_blank" rel="noopener">"Ousadia sonora e sets inusitados: conheça noizzed"</a></li>
             <li><span style="color:var(--accent)">[ELETROVIBEZ]</span> <a href="https://eletrovibez.com/mais-uma-mulher-a-frente-da-sua-propria-gravadora-conheca-a-hi-music-comandada-por-lari-hi/" target="_blank" rel="noopener">"Uma mulher à frente da sua própria gravadora"</a></li>
             <li><span style="color:var(--accent)">[REMIX HYPNOTIZED UOL]</span> <a href="https://siterg.uol.com.br/cultura/2019/07/21/letrux-lanca-em-noite-de-pistinha/" target="_blank" rel="noopener">"Letrux em noite de pistinha"</a></li>
-        </ul>
+        </ul><li><span style="color:var(--accent)">[ALATAJ _ TALKS]</span> <a href="https://alataj.com.br/alataj-talks/cenario-profissional-mais-igualitario-no-brasil" target="_blank" rel="noopener">"Como conquistar um cenário profissional mais igualitário no Brasil?"</a></li>  
+
     </section>
 
     <section class="contact" id="booking">
