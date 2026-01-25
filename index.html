@@ -6,7 +6,7 @@
     
     <!-- SEO & METADATA -->
     <title>noizzed | DJ & Music Producer</title>
-    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records. Detroit, Techno, House e Breaks.">
+    <meta name="description" content="Site oficial de Noizzed. Produtora musical, DJ e investigadora sonora. CEO da Estufa Records. Techno, House e Breaks.">
     <meta name="theme-color" content="#000000">
     <link rel="canonical" href="https://noizzed.xyz">
 
@@ -14,9 +14,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://noizzed.xyz">
     <meta property="og:title" content="noizzed | DJ & Producer">
-    <meta property="og:image" content="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png">
+    <meta property="og:image" content="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/refs/heads/main/dedge.jpg">
 
-    <!-- PRELOAD FONTS & CRITICAL CSS -->
+    <!-- CRITICAL CSS & FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
             --border: 1px solid #333;
         }
 
-        /* Otimização de Renderização */
+        /* Otimização de Renderização Mobile */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
@@ -39,44 +39,25 @@
             font-family: 'Space Mono', monospace;
             line-height: 1.2;
             overflow-x: hidden;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeSpeed;
         }
 
-        /* SCANLINE V2 - Otimizado para Desktop (Menos CPU) */
-        body::after {
-            content: " ";
-            display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(255, 255, 255, 0),
-                rgba(255, 255, 255, 0) 50%,
-                rgba(0, 0, 0, 0.2) 50%,
-                rgba(0, 0, 0, 0.2)
-            );
-            background-size: 100% 4px;
-            z-index: 1000; pointer-events: none;
-            /* Força GPU */
-            transform: translateZ(0);
-            opacity: 0.6;
-        }
-
-        /* HEADER FIXO */
+        /* HEADER */
         header {
             padding: 1.5rem 2rem; border-bottom: var(--border); display: flex;
             justify-content: space-between; align-items: center;
-            position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 999;
-            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-            height: 80px; /* Altura fixa para evitar CLS */
+            position: sticky; top: 0; background: rgba(0,0,0,0.8); z-index: 999;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            height: 80px; will-change: transform;
         }
 
         .logo { 
-            font-size: 1rem; font-weight: 400; color: #666; 
-            transition: 0.3s; cursor: default; letter-spacing: 1px; white-space: nowrap;
+            font-size: 1rem; font-weight: 400; color: #aaa; 
+            transition: color 0.3s; cursor: default; letter-spacing: 1px; white-space: nowrap;
         }
         
         .logo.active {
-            font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -2px;
+            font-size: 1.5rem; font-weight: 700; color: #fff; letter-spacing: -1px;
             text-shadow: 2px 0 var(--accent);
         }
 
@@ -84,7 +65,7 @@
         nav a {
             color: var(--text); text-decoration: none;
             font-size: 0.9rem; border: 1px solid transparent; padding: 5px 10px;
-            text-transform: uppercase; transition: 0.2s;
+            text-transform: uppercase; transition: 0.2s; text-shadow: 0 0 5px rgba(0,0,0,0.8);
         }
         nav a:hover { border: 1px solid var(--accent); color: var(--accent); }
 
@@ -92,74 +73,87 @@
         .platforms-nav {
             display: flex; padding: 10px 2rem; border-bottom: var(--border);
             gap: 25px; background: #080808; overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         .platforms-nav a { 
             color: #888; text-decoration: none; font-size: 11px; 
             text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; font-weight: bold; 
             padding: 5px 0;
         }
-        .platforms-nav a:hover { color: var(--accent); text-decoration: underline; }
+
+        /* --- HERO SECTION (FOTO D-EDGE) --- */
+        .hero {
+            padding: 2rem; 
+            border-bottom: var(--border);
+            min-height: 95vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+            position: relative;
+            
+            /* TRUQUE PARA DEIXAR PRETO E BRANCO AUTOMÁTICO */
+            background-color: #000; 
+            
+            background-image: 
+                /* Gradiente: Escurece embaixo para o texto aparecer */
+                linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,1) 100%),
+                /* URL DA FOTO D-EDGE */
+               url('https://raw.githubusercontent.com/hellonoizzed/noizzed-web/refs/heads/main/dedge.jpg');
+            
+            background-size: cover;
+            background-position: center top; /* Foca no topo da foto (rosto/luzes) */
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Parallax no PC */
+            
+            /* FILTRO P&B */
+            background-blend-mode: saturation; 
+        }
+
+        @media (max-width: 850px) {
+            .hero { 
+                background-attachment: scroll; 
+                background-position: center center;
+            }
+        }
+
+        h1 { 
+            font-size: 18vw; 
+            line-height: 0.8; 
+            text-transform: lowercase; 
+            margin-bottom: 30px; 
+            color: #fff; 
+            letter-spacing: -5px; 
+            word-break: break-all;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            z-index: 2;
+        }
+        
+        .slogan {
+            font-size: 1.8rem; color: var(--accent); margin-top: 20px;
+            border-left: 4px solid var(--accent); padding-left: 20px;
+            line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; max-width: 800px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            background: linear-gradient(90deg, rgba(0,0,0,0.6), transparent);
+        }
+        
+        .tech-text { 
+            font-size: 1.1rem; color: #ccc; margin-top: 20px; max-width: 600px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,1);
+        }
+
+        /* MANIFESTO */
+        .manifesto { 
+            display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border);
+            content-visibility: auto; background: #000;
+        }
+        .manifesto-box { padding: 5rem 3rem; border-right: var(--border); font-size: 1.4rem; text-transform: uppercase; line-height: 1.4; }
+        .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
 
         .section-title {
             padding: 1.5rem 2rem; background: #fff; color: #000;
             font-weight: bold; text-transform: uppercase; letter-spacing: 3px; font-size: 1.2rem;
             border-bottom: var(--border); margin-top: 0;
-            content-visibility: auto; contain-intrinsic-size: 60px;
         }
-
-        /* HERO AREA */
-     /* HERO COM FOTO DE FUNDO ESTILO HACKER */
-.hero {
-    padding: 6rem 2rem;
-    border-bottom: var(--border);
-    min-height: 90vh; /* Ocupa a tela toda */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    
-    /* A MÁGICA ACONTECE AQUI */
-    /* 1. O Gradiente preto deixa a foto escura para o texto ler */
-    /* 2. A URL puxa sua foto */
-    background-image: 
-        linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
-        url('https://github.com/hellonoizzed/noizzed-web/blob/main/noizzed_4_20220521_amplo.jpg?raw=true');
-    
-    background-size: cover;       /* Cobre tudo */
-    background-position: center;  /* Centraliza seu rosto */
-    background-attachment: fixed; /* Efeito Parallax (foto parada ao rolar) */
-    background-repeat: no-repeat;
-      background-blend-mode: saturation; 
-}
-
-/* Ajuste no texto para garantir leitura sobre a foto */
-h1 { 
-    font-size: 18vw; 
-    line-height: 0.8; 
-    text-transform: lowercase; 
-    margin-bottom: 30px; 
-    color: #fff; 
-    letter-spacing: -5px; 
-    word-break: break-all;
-    text-shadow: 0 0 20px rgba(0,0,0,0.8); /* Sombra para destacar do fundo */
-    z-index: 2;
-}
-        
-        .slogan {
-            font-size: 2rem; color: var(--accent); margin-top: 20px;
-            border-left: 4px solid var(--accent); padding-left: 20px;
-            line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; max-width: 800px;
-        }
-        
-        .tech-text { font-size: 1.2rem; color: #888; margin-top: 20px; max-width: 600px; }
-
-        /* MANIFESTO */
-        .manifesto { 
-            display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border);
-            content-visibility: auto;
-        }
-        .manifesto-box { padding: 5rem 3rem; border-right: var(--border); font-size: 1.4rem; text-transform: uppercase; line-height: 1.4; }
-        .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
 
         /* CREDENTIALS */
         .credentials { 
@@ -170,87 +164,92 @@ h1 {
         .cred-item h3 { color: var(--accent); margin-bottom: 1.5rem; font-size: 1rem; letter-spacing: 2px; }
         .cred-item p { font-size: 1.3rem; }
 
-        /* LITE YOUTUBE FACADE (Otimização Extrema) */
+        /* VIDEO AREA */
         .video-container { display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border); content-visibility: auto; }
         .video-wrapper { 
-            flex: 1 1 500px; height: 400px; position: relative; 
-            background: #000; cursor: pointer; overflow: hidden;
+            flex: 1 1 500px; height: 350px; position: relative; 
+            background: #111; cursor: pointer; overflow: hidden;
         }
         .video-placeholder {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s;
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.3s;
         }
-        .video-wrapper:hover .video-placeholder { opacity: 1; }
         .play-btn {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 70px; height: 70px; background: rgba(0,255,65,0.8); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 30px; color: #000;
+            width: 60px; height: 60px; background: var(--accent); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 24px; color: #000;
             pointer-events: none; border: 2px solid #fff;
         }
 
         /* DISCOGRAPHY */
-        .audio-container { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; content-visibility: auto; }
-        
         .discog-grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
-            gap: 20px; padding: 3rem; border-bottom: var(--border);
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+            gap: 15px; padding: 2rem; border-bottom: var(--border);
             content-visibility: auto;
         }
         .discog-item { aspect-ratio: 1 / 1; background: #111; position: relative; }
         .discog-item img { 
             width: 100%; height: 100%; object-fit: cover; 
-            border: 1px solid #333; transition: transform 0.2s, filter 0.2s; 
-            filter: grayscale(100%); cursor: pointer; 
+            border: 1px solid #333; filter: grayscale(100%); 
         }
-        .discog-item img:hover { filter: grayscale(0%); border-color: var(--accent); transform: scale(1.02); }
+
+        /* SOUNDCLOUD */
+        .soundcloud-facade {
+            width: 100%; height: 300px; background: #111; 
+            display: flex; align-items: center; justify-content: center; 
+            flex-direction: column; cursor: pointer; border-bottom: var(--border);
+            color: #666; transition: 0.3s;
+        }
+        .soundcloud-facade:hover { background: #1a1a1a; color: var(--accent); }
+        .sc-icon { font-size: 3rem; margin-bottom: 1rem; color: #ff5500; }
+        .sc-text { letter-spacing: 2px; text-transform: uppercase; font-weight: bold; }
+
+        /* CONTACT */
+        .contact { padding: 6rem 2rem; text-align: center; border-bottom: var(--border); content-visibility: auto; }
+        .btn {
+            display: inline-block; padding: 1.5rem 3rem; border: 2px solid #fff;
+            color: var(--text); text-decoration: none; font-size: 2rem; font-weight: bold;
+            text-transform: uppercase;
+        }
+        .btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
 
         .press-list { padding: 3rem; border-bottom: var(--border); content-visibility: auto; }
         .press-list li { list-style: none; margin-bottom: 2rem; border-bottom: 1px dashed #333; padding-bottom: 15px; }
-        .press-list a { color: var(--text); text-decoration: none; font-size: 1.5rem; }
-        .press-list a:hover { color: var(--accent); }
-
-        /* CONTACT */
-        .contact { padding: 8rem 2rem; text-align: center; border-bottom: var(--border); content-visibility: auto; }
-        .btn {
-            display: inline-block; padding: 2rem 4rem; border: 3px solid #fff;
-            color: var(--text); text-decoration: none; font-size: 2.5rem; font-weight: bold;
-            transition: 0.2s; text-transform: uppercase;
-        }
-        .btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); box-shadow: 0 0 30px rgba(0, 255, 65, 0.4); }
+        .press-list a { color: var(--text); text-decoration: none; font-size: 1.3rem; }
 
         .email-link {
             display: block; margin-top: 2rem; color: #888; text-decoration: none; 
-            font-size: 1.5rem; transition: 0.2s; font-weight: bold; letter-spacing: 1px;
+            font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;
         }
 
         /* GALLERY */
         .visual-archive { background: #000; border-bottom: var(--border); position: relative; content-visibility: auto; }
         .carousel-wrapper { overflow: hidden; position: relative; width: 100%; }
-        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); will-change: transform; }
-        .slide { min-width: 100%; height: 600px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .carousel-track { display: flex; transition: transform 0.5s ease; will-change: transform; }
+        .slide { min-width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .slide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
         
-        .carousel-nav { position: absolute; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
-        .nav-btn { background: #000; color: #fff; border: 1px solid #fff; padding: 20px 30px; cursor: pointer; font-family: 'Space Mono'; font-weight: bold; }
+        .carousel-nav { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 100; }
+        .nav-btn { background: #000; color: #fff; border: 1px solid #fff; padding: 15px 20px; cursor: pointer; }
         
-        footer { padding: 4rem 2rem; text-align: center; font-size: 0.9rem; opacity: 0.5; border-top: var(--border); content-visibility: auto; }
+        footer { padding: 3rem 1rem; text-align: center; font-size: 0.8rem; opacity: 0.5; border-top: var(--border); }
 
         @media (max-width: 850px) {
-            h1 { font-size: 22vw; }
-            .hero { padding: 4rem 1rem; min-height: auto; }
-            .slogan { font-size: 1.5rem; }
+            h1 { font-size: 20vw; margin-bottom: 15px; }
+            .hero { padding: 4rem 1.5rem; min-height: 80vh; }
+            .slogan { font-size: 1.3rem; }
             .manifesto { grid-template-columns: 1fr; }
             .manifesto-box { border-right: none; border-bottom: var(--border); padding: 3rem 1.5rem; }
             header { flex-direction: column; gap: 15px; height: auto; padding-bottom: 1.5rem; }
             nav { flex-wrap: wrap; justify-content: center; }
             .slide { height: 350px; }
-            .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; }
-            .email-link { font-size: 1.1rem; }
+            .btn { font-size: 1.3rem; padding: 1.2rem; width: 100%; }
+            .press-list a { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
-    <a href="https://wa.me/5548998144025?text=Ola%20vim%20pelo%20site" aria-label="Whatsapp" target="_blank" style="position: fixed; bottom: 30px; right: 30px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2.5rem; text-decoration: none; z-index: 9999; border: 3px solid #000; box-shadow: 0 0 15px rgba(0,0,0,0.8);">💬</a>
+    <a href="https://wa.me/5548998144025?text=Ola%20vim%20pelo%20site" aria-label="Whatsapp" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; padding: 12px; border-radius: 50%; font-size: 2rem; text-decoration: none; z-index: 9999; border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.8);">💬</a>
 
     <header>
         <div class="logo" id="dynamic-logo">não é barulho</div>
@@ -272,13 +271,22 @@ h1 {
         <a href="https://instagram.com/noizzed" target="_blank" rel="noopener">instagram</a>
     </div>
 
+    <!-- HERO COM A FOTO D-EDGE (P&B AUTOMÁTICO) -->
     <section class="hero">
         <h1>noizzed</h1>
-        <p class="slogan">Produtora, DJ <br>e investigadora sonora</p>
-        <p class="tech-text">[ Pista é território. Cabine é laboratório.]</p>
-        <div style="margin-top: 4rem;">
-            <p style="font-size: 0.8rem; margin-bottom: 10px; color: #666; letter-spacing: 3px;">PROMOTER_AREA</p>
-            <a href="https://drive.google.com/drive/folders/1zIwZI_msd0OCUGgvcaLjQyAztO4OgmlA?usp=drive_link" target="_blank" style="background: var(--accent); color: #000; padding: 15px 30px; text-decoration: none; font-weight: bold; font-size: 1rem; display: inline-block;">DOWNLOAD PRESS KIT</a>
+        
+        <p class="slogan">
+         Produtora, DJ <br>e investigadora sonora
+        </p>
+        
+        <p class="tech-text">
+            [ Pista é território. 
+            Cabine é laboratório.]
+        </p>
+        
+        <div style="margin-top: 3rem;">
+            <p style="font-size: 0.7rem; margin-bottom: 8px; color: #fff; letter-spacing: 2px; text-shadow: 0 1px 3px #000;">PROMOTER_AREA</p>
+            <a href="https://drive.google.com/drive/folders/1zIwZI_msd0OCUGgvcaLjQyAztO4OgmlA?usp=drive_link" target="_blank" style="background: var(--accent); color: #000; padding: 12px 25px; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: inline-block; box-shadow: 0 0 15px rgba(0,0,0,0.8);">DOWNLOAD PRESS KIT</a>
         </div>
     </section>
 
@@ -295,41 +303,41 @@ h1 {
     </section>
 
     <div class="section-title">Visual_Feed // Live_Action</div>
-    <!-- LITE YOUTUBE: CLIQUE PARA CARREGAR -->
     <section class="video-container">
-        <!-- VIDEO 1 -->
         <div class="video-wrapper" onclick="loadVideo(this, 'FUv5cd7JwHY')">
-            <img class="video-placeholder" src="https://img.youtube.com/vi/FUv5cd7JwHY/maxresdefault.jpg" alt="Noizzed Set" loading="lazy">
+            <img class="video-placeholder" src="https://img.youtube.com/vi/FUv5cd7JwHY/hqdefault.jpg" alt="Noizzed Set" loading="lazy" width="480" height="360">
             <div class="play-btn">▶</div>
         </div>
-        <!-- VIDEO 2 -->
         <div class="video-wrapper" onclick="loadVideo(this, 'Gj9F40CQsp0')">
-            <img class="video-placeholder" src="https://img.youtube.com/vi/Gj9F40CQsp0/maxresdefault.jpg" alt="Noizzed Performance" loading="lazy">
+            <img class="video-placeholder" src="https://img.youtube.com/vi/Gj9F40CQsp0/hqdefault.jpg" alt="Noizzed Performance" loading="lazy" width="480" height="360">
             <div class="play-btn">▶</div>
         </div>
     </section>
 
     <div class="section-title" id="lab">Audio_Data // Discography</div>
     <section class="discog-grid">
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(1).png?raw=true" alt="Album 1"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(2).png?raw=true" alt="Album 2"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(3).png?raw=true" alt="Album 3"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(4).png?raw=true" alt="Album 4"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(5).png?raw=true" alt="Album 5"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(6).png?raw=true" alt="Album 6"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(7).png?raw=true" alt="Album 7"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(8).jpg?raw=true" alt="Album 8"></div>
-        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(9).png?raw=true" alt="Album 9"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(1).png?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(2).png?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(3).png?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(4).png?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(5).png?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(6).png?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(7).png?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(8).jpg?raw=true" alt="Album" width="300" height="300"></div>
+        <div class="discog-item"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(9).png?raw=true" alt="Album" width="300" height="300"></div>
     </section>
 
-    <section class="audio-container">
-        <!-- SOUNDCLOUD LAZY -->
-        <iframe loading="lazy" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-    </section>
+    <div id="sc-container">
+        <div class="soundcloud-facade" onclick="loadSoundCloud()">
+            <div class="sc-icon">☁️</div>
+            <div class="sc-text">CARREGAR PLAYER SOUNDCLOUD</div>
+            <div style="font-size: 0.8rem; margin-top: 10px; color: #444;">(Clique para ouvir)</div>
+        </div>
+    </div>
 
     <div class="section-title" id="transmissao">Press_Log // Mídia</div>
     <section class="press-list">
-        <ul>
+      <ul>
             <li><span style="color:var(--accent)">[TANTSA MOKHA]</span> <a href="https://www.instagram.com/p/C_gpSpivO_p/?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">"Get to know Noizzed"</a></li>
             <li><span style="color:var(--accent)">[HOUSE MAG]</span> <a href="https://www.housemag.com.br/4611-ousadia-sonora-noizzed-e-capa-da-revista-house-mag-45/" target="_blank" rel="noopener">"Ousadia sonora e sets inusitados: conheça noizzed"</a></li>
             <li><span style="color:var(--accent)">[ELETROVIBEZ]</span> <a href="https://eletrovibez.com/mais-uma-mulher-a-frente-da-sua-propria-gravadora-conheca-a-hi-music-comandada-por-lari-hi/" target="_blank" rel="noopener">"Uma mulher à frente da sua própria gravadora"</a></li>
@@ -339,7 +347,7 @@ h1 {
     </section>
 
     <section class="contact" id="booking">
-        <p style="margin-bottom: 2.5rem; letter-spacing: 5px; opacity: 0.7; font-size: 1.2rem;">INICIAR PROTOCOLO DE CONTRATAÇÃO</p>
+        <p style="margin-bottom: 2.5rem; letter-spacing: 5px; opacity: 0.7; font-size: 1rem;">INICIAR PROTOCOLO DE CONTRATAÇÃO</p>
         <a href="mailto:fala@noizzed.xyz" class="btn">BOOKING_NOW</a>
         <a href="mailto:fala@noizzed.xyz" class="email-link">[ fala@noizzed.xyz ]</a>
     </section>
@@ -348,10 +356,10 @@ h1 {
     <section class="visual-archive">
         <div class="carousel-wrapper">
             <div class="carousel-track" id="track">
-                <div class="slide"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png" alt="Profile"></div>
-                <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(26).png?raw=true" alt="Gig 1"></div>
-                <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(25).jpg?raw=true" alt="Gig 2"></div>  
-                <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed.jpg?raw=true" alt="Press"></div>
+                <div class="slide"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png" alt="Profile" width="600" height="400"></div>
+                <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(26).png?raw=true" alt="Gig 1" width="600" height="400"></div>
+                <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(25).jpg?raw=true" alt="Gig 2" width="600" height="400"></div>  
+                <div class="slide"><img loading="lazy" decoding="async" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed.jpg?raw=true" alt="Press" width="600" height="400"></div>
             </div>
         </div>
         <div class="carousel-nav">
@@ -365,15 +373,17 @@ h1 {
     </footer>
 
     <script>
-        // SCRIPT ULTRA-LEVE PARA CARREGAR YOUTUBE SÓ NO CLICK
         function loadVideo(element, videoId) {
             element.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
 
-        // Mágica do Logo (Debounced para performance)
+        function loadSoundCloud() {
+            const container = document.getElementById('sc-container');
+            container.innerHTML = `<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>`;
+        }
+
         const logo = document.getElementById('dynamic-logo');
         let ticking = false;
-        
         window.addEventListener('scroll', function() {
             if (!ticking) {
                 window.requestAnimationFrame(function() {
@@ -390,11 +400,9 @@ h1 {
             }
         }, { passive: true });
 
-        // Carrossel
         let currentIndex = 0;
         const track = document.getElementById('track');
         const slides = document.querySelectorAll('.slide');
-
         function moveSlide(direction) {
             currentIndex += direction;
             if (currentIndex < 0) currentIndex = slides.length - 1;
@@ -405,7 +413,3 @@ h1 {
     </script>
 </body>
 </html>
-
-
-
-
