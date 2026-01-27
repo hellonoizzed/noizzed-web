@@ -10,6 +10,9 @@
     <meta name="theme-color" content="#000000">
     <link rel="canonical" href="https://noizzed.xyz">
 
+    <!-- FAVICON (Ícone da Aba) -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png">
+
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://noizzed.xyz">
@@ -29,7 +32,6 @@
             --border: 1px solid #333;
         }
 
-        /* Otimização de Renderização Mobile */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
@@ -40,32 +42,15 @@
             line-height: 1.2;
             overflow-x: hidden;
             text-rendering: optimizeSpeed;
-        }
-
-        /* SCANLINE - DESATIVADO NO MOBILE PARA PERFORMANCE */
-        @media (min-width: 769px) {
-            body::after {
-                content: " ";
-                display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-                background: repeating-linear-gradient(
-                    to bottom,
-                    rgba(0, 0, 0, 0) 0px,
-                    rgba(0, 0, 0, 0) 2px,
-                    rgba(0, 0, 0, 0.1) 2px,
-                    rgba(0, 0, 0, 0.1) 4px
-                );
-                z-index: 1000; pointer-events: none;
-                transform: translateZ(0); /* GPU Force */
-            }
+            padding-bottom: 60px; /* Espaço para o player */
         }
 
         /* HEADER */
         header {
             padding: 1.5rem 2rem; border-bottom: var(--border); display: flex;
             justify-content: space-between; align-items: center;
-            position: sticky; top: 0; background: rgba(0,0,0,0.95); z-index: 999;
-            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-            height: 80px; will-change: transform;
+            position: sticky; top: 0; background: rgba(0,0,0,0.9); z-index: 999;
+            backdrop-filter: blur(10px); height: 80px;
         }
 
         .logo { 
@@ -109,17 +94,15 @@
         .hero {
             padding: 6rem 2rem; 
             border-bottom: var(--border);
-            min-height: 90vh; /* Aumentei para dar destaque na foto */
+            min-height: 90vh; 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
             position: relative;
-            
-            /* FOTO + FILTRO ESCURO */
+            background-color: #000;
             background-image: 
-                linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.95)), /* Filtro para ler o texto */
+                linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.95)), 
                 url('https://raw.githubusercontent.com/hellonoizzed/noizzed-web/bcd57a1a66d4857f25fe126ca18ecfcd3b22223c/noizzedtopo2.jpg');
-            
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -128,16 +111,14 @@
         h1 { 
             font-size: 18vw; line-height: 0.8; text-transform: lowercase; 
             margin-bottom: 30px; color: #fff; letter-spacing: -4px; word-break: break-all;
-            text-shadow: 0 0 30px rgba(0,0,0,0.9); /* Sombra para destacar da foto */
-            z-index: 2;
+            text-shadow: 0 0 30px rgba(0,0,0,0.9); z-index: 2;
         }
         
         .slogan {
             font-size: 1.8rem; color: var(--accent); margin-top: 20px;
             border-left: 4px solid var(--accent); padding-left: 20px;
             line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; max-width: 800px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-            z-index: 2;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8); z-index: 2;
         }
         
         .tech-text { 
@@ -145,10 +126,10 @@
             text-shadow: 0 0 10px rgba(0,0,0,0.8); z-index: 2;
         }
 
-        /* PRESS KIT AREA */
         .pk-area { margin-top: 3rem; z-index: 2; position: relative; }
+
         /* MANIFESTO */
-        .manifesto { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); background: #000; }
+        .manifesto { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); background: #000; scroll-margin-top: 80px; }
         .manifesto-box { padding: 5rem 3rem; border-right: var(--border); font-size: 1.4rem; text-transform: uppercase; line-height: 1.4; }
         .manifesto-box.highlight { background-color: var(--accent); color: var(--bg); font-weight: bold; }
 
@@ -161,14 +142,14 @@
         /* VIDEO AREA */
         .video-container { display: flex; flex-wrap: wrap; background: #000; border-bottom: var(--border); }
         .video-wrapper { flex: 1 1 500px; height: 400px; position: relative; background: #000; cursor: pointer; overflow: hidden; }
-        .video-placeholder { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s; }
+        .video-placeholder { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.3s; }
         .video-wrapper:hover .video-placeholder { opacity: 1; }
         .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(0,255,65,0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #000; pointer-events: none; border: 2px solid #fff; }
 
         /* DISCOGRAPHY */
-        .audio-container { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; }
-        .discog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 3rem; border-bottom: var(--border); }
-        .discog-item img { width: 100%; border: 1px solid #333; transition: 0.3s; filter: grayscale(100%); cursor: pointer; }
+        .audio-container { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; scroll-margin-top: 80px; }
+        .discog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; padding: 3rem; border-bottom: var(--border); }
+        .discog-item img { width: 100%; border: 1px solid #333; filter: grayscale(100%); transition: 0.3s; cursor: pointer; }
         .discog-item img:hover { filter: grayscale(0%); border-color: var(--accent); transform: scale(1.02); }
 
         /* PRESS & CONTACT */
@@ -185,33 +166,56 @@
         .visual-archive { background: #000; border-bottom: var(--border); position: relative; }
         .carousel-wrapper { overflow: hidden; position: relative; width: 100%; }
         .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
-        .slide { min-width: 100%; height: 600px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .slide { min-width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .slide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
         .carousel-nav { position: absolute; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
         .nav-btn { background: #000; color: #fff; border: 1px solid #fff; padding: 20px 30px; cursor: pointer; font-family: 'Space Mono'; font-weight: bold; }
 
+        /* STICKY PLAYER */
+        .sticky-player {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #080808; border-top: 1px solid var(--accent);
+            padding: 10px 20px; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 20px;
+        }
+        .track-info { font-size: 0.8rem; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .custom-audio { width: 100%; max-width: 400px; height: 30px; filter: invert(1); }
+
         footer { padding: 4rem 2rem; text-align: center; font-size: 0.9rem; opacity: 0.5; border-top: var(--border); }
 
         @media (max-width: 850px) {
-            .hero { background-attachment: scroll; background-position: center; padding: 4rem 1.5rem; }
             h1 { font-size: 20vw; }
+            .hero { padding: 4rem 1.5rem; min-height: 80vh; }
             header { flex-direction: column; gap: 15px; height: auto; padding-bottom: 1.5rem; }
             nav { flex-wrap: wrap; justify-content: center; }
             .manifesto { grid-template-columns: 1fr; }
             .manifesto-box { border-right: none; border-bottom: var(--border); }
             .btn { font-size: 1.5rem; padding: 1.5rem; width: 100%; }
             .slide { height: 350px; }
+            .sticky-player { flex-direction: column; gap: 5px; padding: 15px; }
         }
     </style>
 </head>
 <body>
-    <a href="https://wa.me/5548998144025?text=Ola%20vim%20pelo%20site" style="position: fixed; bottom: 30px; right: 30px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2.5rem; text-decoration: none; z-index: 9999; border: 3px solid #000; box-shadow: 0 0 15px rgba(0,0,0,0.8);">💬</a>
+    <a href="https://wa.me/5548998144025?text=Ola%20vim%20pelo%20site" style="position: fixed; bottom: 90px; right: 30px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; font-size: 2.5rem; text-decoration: none; z-index: 9999; border: 3px solid #000; box-shadow: 0 0 15px rgba(0,0,0,0.8);">💬</a>
+
+    <!-- PLAYER FIXO NO RODAPÉ -->
+    <div class="sticky-player">
+        <div class="track-info">▶ NOW_PLAYING: NOIZZED_SET_PREVIEW_2025.mp3</div>
+        <!-- SUBSTITUA O 'SRC' PELO LINK DO SEU MP3 -->
+        <audio class="custom-audio" controls controlsList="nodownload">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
 
     <header>
         <div class="logo" id="dynamic-logo">não é barulho</div>
         <nav>
-            <a href="lab.html" style="color: var(--accent); border-color: var(--accent);">LAB // PESQUISA</a>
-            <a href="#transmissao">PRESS</a>
+            <a href="lab.html" style="color: var(--accent); border-color: var(--accent);">SOBRE // LAB</a>
+            <a href="#manifesto">MANIFESTO</a>
+            <a href="#releases">RELEASES</a>
             <a href="#booking">BOOKINGS</a>
             <a href="https://noncenci.blogspot.com/">BLOG</a>
         </nav>
@@ -231,18 +235,16 @@
         <h1>noizzed</h1>
         <p class="slogan">Produtora, DJ <br>e investigadora sonora</p>
         <p class="tech-text">[ Pista é território. Cabine é laboratório.]</p>
-        <div style="margin-top: 4rem;">
-            <p style="font-size: 0.8rem; margin-bottom: 10px; color: #fff; letter-spacing: 3px; text-shadow: 0 1px 3px #000;">PROMOTER_AREA</p>
-            <a href="https://drive.google.com/drive/folders/1zIwZI_msd0OCUGgvcaLjQyAztO4OgmlA?usp=drive_link" target="_blank" style="background: var(--accent); color: #000; padding: 15px 30px; text-decoration: none; font-weight: bold; font-size: 1rem; display: inline-block; box-shadow: 0 0 15px rgba(0,0,0,0.8);">DOWNLOAD PRESS KIT</a>
+        <div class="pk-area">
+            <p style="font-size: 0.7rem; margin-bottom: 8px; color: #ccc; letter-spacing: 2px; text-shadow: 0 0 5px #000;">PROMOTER_AREA</p>
+            <a href="https://drive.google.com/drive/folders/1zIwZI_msd0OCUGgvcaLjQyAztO4OgmlA?usp=drive_link" target="_blank" style="background: var(--accent); color: #000; padding: 12px 25px; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: inline-block;">DOWNLOAD PRESS KIT</a>
         </div>
     </section>
 
-    <section class="manifesto">
+    <!-- MANIFESTO COM ID PARA O LINK -->
+    <section class="manifesto" id="manifesto">
         <div class="manifesto-box">Sets construídos ao vivo a partir da leitura da pista. Matéria-prima: loops, samples e síntese sonora.</div>
-        <div class="manifesto-box highlight">estufa records.<br>
-tpm — todas pela música.<br>
-estrutura, ativismo e som.<br>
-hackeando o sistema fonográfico.<br></div>
+        <div class="manifesto-box highlight">CEO da ESTUFA RECORDS.<br>Fundadora do coletivo TPM (#todaspelamusica).<br>Hackeando o sistema fonográfico.</div>
     </section>
 
     <div class="section-title">Credenciais & Suporte</div>
@@ -264,7 +266,7 @@ hackeando o sistema fonográfico.<br></div>
         </div>
     </section>
 
-    <div class="section-title">Audio_Data // Discography</div>
+    <div class="section-title" id="releases">Audio_Data // Discography</div>
     <section class="discog-grid">
         <div class="discog-item"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(1).png?raw=true" alt="Album 1"></div>
         <div class="discog-item"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(2).png?raw=true" alt="Album 2"></div>
@@ -277,7 +279,7 @@ hackeando o sistema fonográfico.<br></div>
         <div class="discog-item"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(9).png?raw=true" alt="Album 9"></div>
     </section>
 
-    <section class="audio-container">
+    <section class="audio-container" id="audio-container">
         <iframe loading="lazy" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1326902578&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
     </section>
 
@@ -288,8 +290,8 @@ hackeando o sistema fonográfico.<br></div>
             <li><span style="color:var(--accent)">[HOUSE MAG]</span> <a href="https://www.housemag.com.br/4611-ousadia-sonora-noizzed-e-capa-da-revista-house-mag-45/" target="_blank" rel="noopener">"Ousadia sonora e sets inusitados: conheça noizzed"</a></li>
             <li><span style="color:var(--accent)">[ELETROVIBEZ]</span> <a href="https://eletrovibez.com/mais-uma-mulher-a-frente-da-sua-propria-gravadora-conheca-a-hi-music-comandada-por-lari-hi/" target="_blank" rel="noopener">"Uma mulher à frente da sua própria gravadora"</a></li>
             <li><span style="color:var(--accent)">[REMIX HYPNOTIZED UOL]</span> <a href="https://siterg.uol.com.br/cultura/2019/07/21/letrux-lanca-em-noite-de-pistinha/" target="_blank" rel="noopener">"Letrux em noite de pistinha"</a></li>
-        </ul><li><span style="color:var(--accent)">[ALATAJ _ TALKS]</span> <a href="https://alataj.com.br/alataj-talks/cenario-profissional-mais-igualitario-no-brasil" target="_blank" rel="noopener">"Como conquistar um cenário profissional mais igualitário no Brasil?"</a></li>  
-
+            <li><span style="color:var(--accent)">[ALATAJ _ TALKS]</span> <a href="https://alataj.com.br/alataj-talks/cenario-profissional-mais-igualitario-no-brasil" target="_blank" rel="noopener">"Como conquistar um cenário profissional mais igualitário no Brasil?"</a></li>  
+        </ul>
     </section>
 
     <section class="contact" id="booking">
@@ -302,16 +304,10 @@ hackeando o sistema fonográfico.<br></div>
     <section class="visual-archive">
         <div class="carousel-wrapper">
             <div class="carousel-track" id="track">
-                   <div class="slide"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/IMG_0641.JPG?raw=true" alt="Profile"></div>
                 <div class="slide"><img loading="lazy" src="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png" alt="Profile"></div>
-       <div class="slide"><img loading="lazy" src="   https://github.com/hellonoizzed/noizzed-web/blob/main/IMG_4992.jpg?raw=true" alt="Profile"></div>
-             
+                <div class="slide"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(26).png?raw=true" alt="Gig 1"></div>
                 <div class="slide"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed(25).jpg?raw=true" alt="Gig 2"></div>  
                 <div class="slide"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/unnamed.jpg?raw=true" alt="Press"></div>
-            
-                <div class="slide"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/IMG_0786.JPG?raw=true" alt="Gig 1"></div>
-                <div class="slide"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/IMG_0788.JPG?raw=true" alt="Gig 2"></div>  
-                <div class="slide"><img loading="lazy" src="https://github.com/hellonoizzed/noizzed-web/blob/main/dedge.jpg?raw=true" alt="Press"></div>
             </div>
         </div>
         <div class="carousel-nav">
@@ -353,6 +349,3 @@ hackeando o sistema fonográfico.<br></div>
     </script>
 </body>
 </html>
-
-
-
