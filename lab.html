@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>noizzed | Research Lab</title>
     <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -36,11 +37,12 @@
         .research-item li::before { content: "> "; color: #666; }
 
         /* BIO LOG */
-        .bio-log { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; display: flex; flex-wrap: wrap; gap: 4rem; }
-        .bio-text { flex: 2; min-width: 300px; font-size: 1.1rem; color: #ddd; text-align: justify; }
-        .bio-meta { flex: 1; min-width: 250px; border-left: 1px solid #333; padding-left: 2rem; display: flex; flex-direction: column; }
+        .bio-log { padding: 4rem 2rem; border-bottom: var(--border); background: #050505; display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 2rem; align-items: start; }
+        .bio-img img { width: 100%; max-width: 250px; border: 1px solid #333; filter: grayscale(100%); }
+        .bio-text { font-size: 1rem; color: #ddd; text-align: justify; }
+        .bio-meta { border-left: 1px solid #333; padding-left: 2rem; display: flex; flex-direction: column; }
         
-        /* EXTENSIONS (3 COLUNAS) */
+        /* EXTENSIONS */
         .extensions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); border-bottom: var(--border); }
         .ext-box { padding: 3rem; border-right: var(--border); border-bottom: var(--border); transition: 0.3s; cursor: pointer; text-decoration: none; color: #fff; display: block; }
         .ext-box:hover { background: #111; }
@@ -53,9 +55,10 @@
         footer { padding: 4rem 2rem; text-align: center; font-size: 0.9rem; opacity: 0.5; border-top: var(--border); }
 
         @media (max-width: 850px) {
-            .bio-log, .extensions, .research-grid { display: block; }
+            .bio-log { grid-template-columns: 1fr; }
             .bio-meta { border-left: none; padding-left: 0; border-top: 1px dashed #333; padding-top: 2rem; margin-top: 2rem; }
             .ext-box, .research-item { border-right: none; }
+            .bio-img { text-align: center; margin-bottom: 20px; }
             header { flex-direction: column; gap: 15px; height: auto; padding-bottom: 1.5rem; }
         }
     </style>
@@ -71,7 +74,7 @@
     </header>
 
     <div class="lab-hero">
-        <h1>LAB // RESEARCH</h1>
+        <h1>SOBRE // LAB</h1>
         <p>Área dedicada aos processos de pesquisa, desenvolvimento artístico e extensões do sistema Noizzed.</p>
     </div>
 
@@ -113,9 +116,12 @@
 
     <div class="section-title">Data_Log // Fabi_Cenci</div>
     <section class="bio-log">
+        <div class="bio-img">
+            <img src="https://raw.githubusercontent.com/hellonoizzed/noizzed-web/3b664618d9c404c7e6cbbaa6b06c84176cf02887/profile.png" alt="Fabi Cenci">
+        </div>
         <div class="bio-text">
             <p style="margin-bottom: 1rem;"><strong>Fabi Cenci</strong> atua na música e na arte de forma não linear. Sua trajetória atravessa a pista, o estúdio, a sala de aula e a gestão cultural.</p>
-            <p>Já esteve à frente de diversas labels, criando catálogos e estratégias de circulação. Participou de programas de desenvolvimento artístico ligados ao <strong>British Council de Londres, o programa  'ASA'</strong> Arte Sônica Amplificada com objetivo central de contribuir para a equidade de gênero na indústria musical brasileira por meio da capacitação de profissionais identificadas como mulheres que atuam em toda a cadeia produtiva do som e da música.</p>
+            <p>Já esteve à frente de diversas labels, criando catálogos e estratégias de circulação. Participou de programas de desenvolvimento artístico ligados ao <strong>British Council de Londres</strong>, especificamente o programa <strong>'ASA' (Arte Sônica Amplificada)</strong>, com o objetivo central de contribuir para a equidade de gênero na indústria musical brasileira por meio da capacitação de profissionais identificadas como mulheres que atuam em toda a cadeia produtiva do som e da música.</p>
             <p style="margin-top: 1rem;">Mantém diálogo constante com a música contemporânea, incluindo remixes para artistas como <strong>Letrux</strong> e conexões com a cena independente que pensa o som como linguagem.</p>
         </div>
         <div class="bio-meta">
@@ -130,7 +136,7 @@
         </div>
     </section>
 
-    <div class="section-title">System_Extensions // Projetos</div>
+<div class="section-title">System_Extensions // Projetos</div>
     <section class="extensions">
         <!-- ESTUFA RECORDS -->
         <a href="https://instagram.com/estufarec" target="_blank" class="ext-box">
